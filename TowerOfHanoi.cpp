@@ -2,6 +2,7 @@
 using namespace std;
 
 // a small program to recursively solve the Tower of Hanoi problem
+// http://en.wikipedia.org/wiki/Tower_of_Hanoi
 
 void moveDisk(unsigned int n, char source, char temp, char dest, int& count)
 {
