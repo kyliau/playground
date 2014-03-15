@@ -1,0 +1,7 @@
+// NDFSA that accepts string ending in 11 or contains 0
+A B
+0 1
+1
+A,1111 B
+A
+B
