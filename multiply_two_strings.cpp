@@ -57,6 +57,7 @@ string multiply(const string& a, const string& b) {
 }
 
 int main() {
+  /*
   cout << multiplyByDigit("999", '9') << endl;
   cout << multiplyByDigit("888", '9') << endl;
   cout << addTwoStrings("999", "999") << endl;
@@ -66,6 +67,7 @@ int main() {
   cout << multiply("12345", "987654321") << endl;
   cout << multiply("123", "0") << endl;
   cout << multiply("123456789", "9876543210") << endl;
+  */
   while(1) {
     cout << "Enter two numbers: ";
     string x, y;
