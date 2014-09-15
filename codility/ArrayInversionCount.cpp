@@ -2,6 +2,10 @@
 #include <vector>
 using namespace std;
 
+// An inversion is a pair of elements in an array such that
+// i < j but A[i] > A[j]. 
+// Count the total number of inversions in a given array.
+
 // invariant: vectors A and B must be sorted
 // merge A and B and save the result in v
 unsigned merge(vector<int>& v, const vector<int>& A, const vector<int>& B) {
