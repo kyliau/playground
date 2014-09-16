@@ -1,8 +1,8 @@
-// you can use includes, for example:
-// #include <algorithm>
 
-// you can write to stdout for debugging purposes, e.g.
-// cout << "this is a debug message" << endl;
+// Lesson 4 - Sorting
+// Triangle
+// Determine whether a triangle can be built from a given set of edges.
+
 #include <algorithm>
 int solution(vector<int> &A) {
   if (A.size() < 3) return 0;

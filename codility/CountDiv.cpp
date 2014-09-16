@@ -2,6 +2,10 @@
 #include <math.h>
 using namespace std;
 
+// Lesson 3 - Prefix Sums
+// CountDiv
+// Compute number of integers divisible by k in range [a..b].
+
 int solution(int A, int B, int K) {
 	int sol = ceil((double)(B - A) / K);
 	if (A % K == 0 && B % K == 0) sol++;

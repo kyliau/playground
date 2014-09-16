@@ -2,11 +2,9 @@
 #include <vector>
 using namespace std;
 
-// you can use includes, for example:
-// #include <algorithm>
-
-// you can write to stdout for debugging purposes, e.g.
-// cout << "this is a debug message" << endl;
+// Lesson 2 - Counting Elements
+// MissingInteger
+// Find the minimal positive integer not occurring in a given sequence.
 
 int solution(vector<int> &A) {
 	int missing = 1;

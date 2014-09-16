@@ -2,6 +2,11 @@
 #include <vector>
 using namespace std;
 
+// Lesson 4 - Sorting
+// NumberOfDiscIntersections
+// Compute intersections between sequence of discs.
+
+
 struct node_t {
   int val;
   char type;
