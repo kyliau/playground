@@ -7,16 +7,14 @@ using namespace std;
 // Calculate the values of counters after applying all alternating operations: 
 // increase counter by 1; set value of all counters to current maximum.
 
-
-vector<int> solution(int N, vector<int> &A)
-{
-	vector<int> counter(N, 0);
+vector<int> solution(int N, vector<int> &A) {
+    vector<int> counter(N, 0);
 	int max_counter = 0;
 	int minimum = 0;
 
-	for (int i = 0; i < A.size(); ++i) {
-		if (A[i] <= N) {
-			int& val = counter[A[i] - 1];
+	for (int a : A) {
+		if (a <= N) {
+			int& val = counter[a - 1];
 			if (val < minimum) {
 				val = minimum + 1;
 			} else {
