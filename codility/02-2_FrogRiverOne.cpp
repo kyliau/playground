@@ -4,8 +4,7 @@
 // Find the earliest time when a frog can jump to the other side of a river.
 
 int solution(int X, vector<int> &A) {
-    vector<bool> B(X);
-    fill(B.begin(), B.end(), false);
+    vector<bool> B(X, false);
     long sum = (1 + X) * X / 2;
     long arraySum = 0;
     for (unsigned i = 0; i < A.size(); ++i) {

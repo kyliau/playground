@@ -8,8 +8,7 @@ using namespace std;
 
 int solution(vector<int> &A) {
     int N = A.size();
-    vector<bool> B(N);
-    fill(B.begin(), B.end(), false);
+    vector<bool> B(N, false);
     for (int a : A) {
         if (a > 0 && a <= N) {
             B[a-1] = true;
