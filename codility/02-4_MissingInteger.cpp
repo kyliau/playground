@@ -7,18 +7,19 @@ using namespace std;
 // Find the minimal positive integer not occurring in a given sequence.
 
 int solution(vector<int> &A) {
-	int missing = 1;
-	int largest = 0;
-
-	for (int a : A) {
-		if (a == missing) {
-			missing++;
-		}
-	}
-	return missing;
+    int N = A.size();
+    vector<bool> B(N);
+    fill(B.begin(), B.end(), false);
+    for (int a : A) {
+        if (a > 0 && a <= N) {
+            B[a-1] = true;
+        }
+    }
+    for (int i = 0; i < N; i++) {
+        if (!B[i]) {
+            return i + 1;
+        }
+    }
+    return N + 1;
 }
 
-int main() {
-	vector<int> A {1, 3, 6, 4, 1, 2};
-	cout << solution(A) << endl;
-}
