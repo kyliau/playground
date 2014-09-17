@@ -8,7 +8,7 @@ using namespace std;
 // increase counter by 1; set value of all counters to current maximum.
 
 vector<int> solution(int N, vector<int> &A) {
-    vector<int> counter(N, 0);
+	vector<int> counter(N, 0);
 	int max_counter = 0;
 	int minimum = 0;
 
