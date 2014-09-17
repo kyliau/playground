@@ -2,6 +2,11 @@
 #include <vector>
 using namespace std;
 
+// Lesson 99 - Future Training
+// ArrayInversionCount
+// Compute number of inversion in an array.
+
+
 // An inversion is a pair of elements in an array such that
 // i < j but A[i] > A[j]. 
 // Count the total number of inversions in a given array.

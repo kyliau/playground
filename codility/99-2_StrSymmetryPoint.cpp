@@ -1,4 +1,5 @@
-
+// Lesson 99 - Future Training
+// StrSymmetryPoint
 // Find a symmetry point of a string, if any.
 
 int solution(string &S) {
