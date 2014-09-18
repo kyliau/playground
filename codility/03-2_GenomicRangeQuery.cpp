@@ -3,13 +3,16 @@
 // GenomicRangeQuery
 // Find the minimal nucleotide from a range of sequence DNA.
 
+// The idea is to keep track of how many ACGTs I have seen so far while
+// iterating through the characters in S.
+
 #include <map>
 #include <cstring>
 vector<int> solution(string &S, vector<int> &P, vector<int> &Q) {
 
     map<char, int> dna {{'A', 1}, {'C', 2}, {'G', 3}, {'T', 4}};
     unsigned N = S.size(), M = P.size();
-    unsigned table[N][4];
+    unsigned table[N][4]; // this is not standard C++
     unsigned count[4] {0};
 
     for (unsigned i = 0; i < N; i++) {
