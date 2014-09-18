@@ -1,5 +1,4 @@
 
-
 // Lesson 5 - Stacks and Queues
 // Nesting
 // Determine whether given string of parentheses is properly nested.

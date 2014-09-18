@@ -1,10 +1,11 @@
-#include <iostream>
-#include <vector>
-using namespace std;
 
 // Lesson 2 - Counting Elements
 // MissingInteger
 // Find the minimal positive integer not occurring in a given sequence.
+
+#include <iostream>
+#include <vector>
+using namespace std;
 
 int solution(vector<int> &A) {
     int N = A.size();

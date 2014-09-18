@@ -1,10 +1,11 @@
-#include <iostream>
-#include <vector>
-using namespace std;
 
 // Lesson 3 - Prefix Sums
 // MinAvgTwoSlice
 // Find the minimal average of any slice containing at least two elements.
+
+#include <iostream>
+#include <vector>
+using namespace std;
 
 int solution(vector<int> &A) {
 	double smallest = 0.5 * (A[0] + A[1]);

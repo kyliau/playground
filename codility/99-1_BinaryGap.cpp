@@ -1,9 +1,10 @@
-#include <bitset>
-#include <math.h>
 
 // Lesson 99 - Future Training
 // BinaryGap
 // Find longest sequence of zeros in binary representation of an integer.
+
+#include <bitset>
+#include <math.h>
 
 int solution(int N) {
     // write your code in C++11

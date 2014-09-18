@@ -1,11 +1,12 @@
-#include <vector>
-#include <iostream>
-using namespace std;
 
 // Lesson 2 - Counting Elements
 // MaxCounters
 // Calculate the values of counters after applying all alternating operations: 
 // increase counter by 1; set value of all counters to current maximum.
+
+#include <vector>
+#include <iostream>
+using namespace std;
 
 vector<int> solution(int N, vector<int> &A) {
 	vector<int> counter(N, 0);
