@@ -3,6 +3,17 @@
 #include <algorithm>
 #include <math.h>
 using namespace std;
+
+// Given N teams, generate a tournament schedule such that each team
+// plays every other team. In each round, each team can only play one other 
+// team.
+// For example, 4 teams: A B C D
+// Schedule:
+// Round 1: A vs B, C vs D
+// Round 2: A vs C, B vs D
+// Round 3: A vs D, B vs C
+// There are always N - 1 rounds
+
 void print(char A, char B, unsigned round) {
   cout << "Round " << round << ": " << A << " vs. " << B << endl;
 }
