@@ -9,7 +9,7 @@ using namespace std;
 // acb bca cba
 
 // return a vector of all possible permutations of s
-vector<string> helper(const string& s) {
+vector<string> string_permutations(string s) {
 
   vector<string> result;
   
@@ -24,25 +24,19 @@ vector<string> helper(const string& s) {
   
   char c = s.back();
   s.pop_back();
-  for (const string& p : helper(s)) {
+  for (const string& p : string_permutations(s)) {
     // put c in every possible location
     for (int i = 0; i < p.size() + 1; i++) {
       result.push_back(p.substr(0, i) + c + p.substr(i));
-      cout << result.back() << endl;
     }
   }
   
   return result;
 }
 
-void string_permutations(const string& s) {
-  for (const string& p : helper(s)) {
-    cout << p << endl;
-  }
-}
 
 int main() {
-  for (const string& p : helper("abc")) {
+  for (const string& p : string_permutations("abcd")) {
     cout << p << endl;
   }
   return 0;
