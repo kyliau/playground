@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 // generate all possible combinations of a string
@@ -8,7 +9,6 @@ using namespace std;
 // a  ab  abc ac
 // b  bc
 // c
-
 
 vector<string> combination(string s) {
 
@@ -24,13 +24,15 @@ vector<string> combination(string s) {
   }
   
   char c = s.back();
-  s.pop();
-  result.push_back(c);
+  s.pop_back();
+  result.push_back(string(1,c));
   for (string& s2 : combination(s)) {
     result.push_back(s2);
-    result.push_back(s2.push_back(c));
+    s2.push_back(c);
+    result.push_back(s2);
   }
-  
+
+  return result;
 }
   
 int main() {
