@@ -5,6 +5,9 @@
 #include <assert.h>
 using namespace std;
 
+// problem description:
+// https://www.hackerrank.com/contests/lambda-calculi-may14/challenges/prison-transport
+
 // we need a disjoint set (union find) data structure
 // reference: https://www.youtube.com/watch?v=wSPAjGfDl7Q
 
@@ -29,7 +32,7 @@ class disjoint_set {
 disjoint_set::disjoint_set(unsigned n) {
   size = n;
   a = new int[n + 1];
-  // initially each element's root is itself
+  // initially each element's root is itself (size is 1)
   for (int i = 0; i <= n; ++i) {
     a[i] = -1;
   }
