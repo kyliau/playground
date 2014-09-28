@@ -1,7 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
 
 // Lesson 7 - Maximum Slice Problem
 // MaxDoubleSliceSum
