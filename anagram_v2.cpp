@@ -17,9 +17,12 @@ bool anagram(const string& s1, const string& s2) {
     if (--hash[c] < 0) return false;
   }
 
+  // this is not needed because of the length check above
+  /*
   for (const auto& p : hash) {
     if (p.second != 0) return false;
   }
+  */
 
   return true;
 
