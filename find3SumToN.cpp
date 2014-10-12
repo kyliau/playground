@@ -5,6 +5,38 @@ using namespace std;
 // if such numbers exist, print the numbers and return true
 // else return false
 
+// ----------------------------------------------------
+
+// A much better O(N^2) solution
+// vector A must be sorted
+bool find2SumToN(const vector<int>& A, int N) {
+  int left = 0, right = A.size() - 1;
+  while (left <= right) {
+    int sum = A[left] + A[right];
+    if (sum == N) {
+      return true;
+    } else if (sum < N) {
+      ++left;
+    } else { // sum > N
+      --right;
+    }
+  }
+  return false;
+}
+
+bool find3SumToN(const vector<int>& A, int sum) {
+  sort(A.begin(), A.end());
+  for (int a : A) {
+    if (find2SumToN(A, sum - a)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// ----------------------------------------------------
+
+// Brute force O(N^3) solution
 bool find3SumToN(const double input[], unsigned int size, double N)
 {
   //int count = 0;
