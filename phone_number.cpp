@@ -26,8 +26,8 @@ using namespace std;
 
 // input number is a positive integer not more than 9 digits
 vector<string> solution(int number) {
-  static const unordered_map<int, vector<string> > map {
-    {0, {"0"}}
+  static const unordered_map<int, vector<string>> map {
+    {0, {"0"}},
     {1, {"1"}},
     {2, {"A", "B", "C"}},
     {3, {"D", "E", "F"}},
@@ -40,13 +40,13 @@ vector<string> solution(int number) {
   };
 
   if (number < 10) {
-    return map[number];
+    return map.at(number);
   }
 
   vector<string> result;
   int last_digit = number % 10;
   number /= 10;
-  const vector<string>& v = map[last_digit];
+  const vector<string>& v = map.at(last_digit);
   for (const string& s : solution(number)) {
     for (const string& c : v) {
       result.push_back(s + c);
