@@ -26,7 +26,7 @@ using namespace std;
 
 // input number is a positive integer not more than 9 digits
 vector<string> solution(int number) {
-  static unordered_map<int, vector<string> > map {
+  static const unordered_map<int, vector<string> > map {
     {0, {"0"}}
     {1, {"1"}},
     {2, {"A", "B", "C"}},
