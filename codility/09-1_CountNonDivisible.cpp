@@ -5,6 +5,12 @@
 
 // WIP
 
+// Ask these questions:
+// 1. Given a number x, what are its divisors?
+//    Example: x = 21, divisors = {1, 3, 7, 21}
+// 2. Which of these divisors are in the array? 
+// 3. The number of non-divisors is then simply N - |divisors|
+
 #include <math.h>
 #include <algorithm>
 #include <unordered_set>
