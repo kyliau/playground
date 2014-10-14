@@ -8,7 +8,7 @@ void insertion_sort(vector<int>& A) {
   for (int i = 1; i < N; ++i) {
     int j = i;
     // INVARIANT: A[0..j-1] is sorted
-    while (j >= 1 && A[j] < A[j-1]) {
+    while (j > 0 && A[j] < A[j-1]) {
       swap(A[j], A[j-1]);
       --j;
     }
