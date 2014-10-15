@@ -3,78 +3,45 @@
 // CountNonDivisible
 // Calculate the number of elements of an array that are not divisors of each element.
 
-// WIP
-
-// Ask these questions:
-// 1. Given a number x, what are its divisors?
-//    Example: x = 21, divisors = {1, 3, 7, 21}
-// 2. Which of these divisors are in the array? 
-// 3. The number of non-divisors is then simply N - |divisors|
-
-#include <math.h>
-#include <algorithm>
 #include <unordered_set>
 #include <unordered_map>
+#include <algorithm>
 
-// prepare the array F for factorization
-int sieve(int n, unordered_multiset<int>& set) {
-    cout << "The divisors of " << n << " are: ";
-    int result = 1;
-    vector<int> F(n + 1, 0);
-    int i = 2;
-    while (i * i <= n) {
-        if (F[i] == 0) {
-            int k = i * i;
-            while (k <= n) {
-                if (F[k] == 0) {
-                    F[k] = i;
-                    result += set.count(k);
-                    cout << k << " ";
-                }
-                k += i;
-            }
+// this solution is not O(n log n), but it passes the all test cases
+// it is O(sqrt(n) * n) thus O(n ^ 1.5)
+
+int count_divisors_in_array(int x, const vector<int>& B) {
+    unordered_set<int> divisors {1, x};
+    for (int i = 2; i * i <= x; i++) {
+        if (x % i == 0) {
+            divisors.insert(i);
+            divisors.insert(x / i);
         }
-        ++i;
     }
-    cout << endl;
-    return result;
-}
-
-/*
-int factorization(int x, const unordered_multiset<int>& set) {
-    vector<int> F = sieve(x);
-    int result = 1;
-    while (F[x] > 0) {
-        result += set.count(F[x]);
-        x /= F[x];
+    int result = 0;
+    for (const int& d : divisors) {
+        result += B[d];
     }
     return result;
 }
-*/
-
+            
 vector<int> solution(vector<int> &A) {
-    vector<int> B(A);
-    sort(B.begin(), B.end());
-    unordered_map<int, int> hash;
-    for (const int& b : B) {
-        if (hash.find(b) != hash.end()) continue;
-        auto it = lower_bound(B.begin(), B.end(), b + 1);
-        int count = B.end() - it;
-        for (auto i = B.begin(); i != it; ++i) {
-            if (b % *i != 0) {
-                count++;
-            }
-        }
-        hash[b] = count;
-    }
-    
-    int N = A.size();
-    vector<int> result(N);
-    for (int i = 0; i < N; ++i) {
-        //result[i] = N - factorization(A[i], set);
-        //result[i] = N - sieve(0.5 * A[i], set);
-        result[i] = hash[A[i]];
-    }
-    
-    return result;
+  vector<int> B(*max_element(A.begin(), A.end()) + 1, 0);
+  for (const int& a : A) {
+      ++B[a];
+  }
+  int N = A.size();
+  vector<int> result(N);
+  unordered_map<int, int> cache;
+  for (int i = 0; i < N; ++i) {
+      auto it = cache.find(A[i]);
+      if (it != cache.end()) {
+          result[i] = it->second;
+      } else {
+        result[i] = N - count_divisors_in_array(A[i], B);
+        cache[A[i]] = result[i];
+      }
+  }
+  return result;
 }
+
