@@ -9,7 +9,6 @@ void bubble_sort(vector<int>& A) {
     for (int j = 0; j < i ; ++j) {
       if (A[j] > A[j+1]) {
         swap(A[j], A[j+1]);
-        j++;
       }
     }
   }
@@ -24,7 +23,7 @@ int main() {
     }
     cin.clear();
     cin.ignore(200, '\n');
-    insertion_sort(A);
+    bubble_sort(A);
     for (const int& a : A) {
       cout << a << " ";
     }
