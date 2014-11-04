@@ -3,6 +3,8 @@
 // Flags
 // Find the maximum number of flags that can be set on mountain peaks.
 
+// Solution: https://codility.com/media/train/solution-flags.pdf
+
 vector<bool> create_peaks(const vector<int>& A) {
     vector<bool> peaks(A.size(), false);
     int N = A.size();
