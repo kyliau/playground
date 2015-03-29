@@ -1,4 +1,4 @@
-// circularqueue.cpp
+// circulardeque.cpp
 
 #include <circulardeque.h>
 
