@@ -1,8 +1,9 @@
 // queue.h
 
-#ifndef INCLUDED_QUEUE
-#define INCLUDED_QUEUE
+#ifndef INCLUDED_CIRCULARQUEUE
+#define INCLUDED_CIRCULARQUEUE
 
+#include <algorithm>
 #include <memory>
 
 template <class TYPE>
@@ -26,13 +27,19 @@ class CircularDeque
     CircularDeque();
         // Create a 'CircularDeque' object.
 
+    CircularDeque(const CircularDeque& deque);
+        // Copy constructor
+
+    CircularDeque& operator=(const CircularDeque& deque);
+        // Assignment operator
+
     // MANIPULATORS
     TYPE& front();
         // Returns a modifiable reference to the first element in the
         // container.
         // Calling this function on an empty container causes undefined
         // behavior.
-    
+
     TYPE& back();
         // Returns a modifiable reference to the last element in the container.
         // Calling this function on an empty container causes undefined
@@ -43,27 +50,27 @@ class CircularDeque
         // before its current first element. The content of 'value' is copied
         // (or moved) to the inserted element.
         // This effectively increases the container size by one.
-    
+
     void push_back(const TYPE& value);
         // Adds a new element at the end of the container, after its
         // current last element. The content of 'value' is copied (or moved)
         // to the new element.
         // This effectively increases the container size by one.
-    
+
     void pop_front();
-	// Removes the first element in the deque container, effectively
-	// reducing its size by one.
-	// This destroys the removed element.
-	// If the container is not empty, the function never throws exceptions
-	// (no-throw guarantee). Otherwise, the behavior is undefined.
-    
+        // Removes the first element in the deque container, effectively
+        // reducing its size by one.
+        // This destroys the removed element.
+        // If the container is not empty, the function never throws exceptions
+        // (no-throw guarantee). Otherwise, the behavior is undefined.
+
     void pop_back();
-	// Removes the last element in the deque container, effectively
-	// reducing the container size by one.
-	// This destroys the removed element.
-	// If the container is not empty, the function never throws exceptions
-	// (no-throw guarantee).
-	// Otherwise, the behavior is undefined.
+        // Removes the last element in the deque container, effectively
+        // reducing the container size by one.
+        // This destroys the removed element.
+        // If the container is not empty, the function never throws exceptions
+        // (no-throw guarantee).
+        // Otherwise, the behavior is undefined.
 
     void resize(size_type n, value_type value = value_type());
         // Resizes the container so that it contains n elements.
@@ -79,29 +86,31 @@ class CircularDeque
         // automatic reallocation of the allocated storage space takes place.
         // Notice that this function changes the actual content of the
         // container by inserting or erasing elements from it.
-    
+
+    void swap(CircularDeque& deque);
+
     // ACCESSORS
     bool empty() const;
-    	// Returns whether the deque container is empty
-    	// (i.e. whether its size is 0).
+            // Returns whether the deque container is empty
+            // (i.e. whether its size is 0).
 
     size_type size() const;
-	// Returns the number of elements in the deque container.
+        // Returns the number of elements in the deque container.
 
     size_type capacity() const;
-	// Returns the size of the storage space currently allocated for the
-	// container, expressed in terms of elements.
-	// This capacity is not necessarily equal to the vector size.
-	// It can be equal or greater, with the extra space allowing to
-	// accommodate for growth without the need to reallocate on each
-	// insertion.
+        // Returns the size of the storage space currently allocated for the
+        // container, expressed in terms of elements.
+        // This capacity is not necessarily equal to the vector size.
+        // It can be equal or greater, with the extra space allowing to
+        // accommodate for growth without the need to reallocate on each
+        // insertion.
 
     const TYPE& front() const;
         // Returns a non-modifiable reference to the first element in the
         // container.
         // Calling this function on an empty container causes undefined
         // behavior.
-    
+
     const TYPE& back() const;
         // Returns a non-modifiable reference to the last element in the
         // container.
@@ -122,6 +131,27 @@ CircularDeque<TYPE>::CircularDeque()
 , d_capacity(0)
 , d_data(nullptr)
 {
+}
+
+template <class TYPE>
+CircularDeque<TYPE>::CircularDeque(const CircularDeque& deque)
+{
+    DataPtr data(new TYPE[deque.d_capacity]);
+    for (size_type i = 0; i < deque.d_capacity; ++i) {
+        data[i] = deque.d_data[i];
+    }
+    d_front    = deque.d_front;
+    d_count    = deque.d_count;
+    d_capacity = deque.d_capacity;
+    d_data     = std::move(data);
+}
+
+template <class TYPE>
+CircularDeque<TYPE>& CircularDeque<TYPE>::operator=(const CircularDeque& deque)
+{
+    // note, self assignment not checked
+    CircularDeque<TYPE>(deque).swap(*this);
+    return *this;
 }
 
 // MANIPULATORS
@@ -195,6 +225,16 @@ void CircularDeque<TYPE>::resize(size_type n, value_type value)
     d_front = 0;
     d_capacity = n;
     d_data = std::move(data);
+}
+
+template <class TYPE>
+inline
+void CircularDeque<TYPE>::swap(CircularDeque& deque)
+{
+    d_data.swap(deque.d_data);
+    std::swap(d_front,    deque.d_front);
+    std::swap(d_count,    deque.d_count);
+    std::swap(d_capacity, deque.d_capacity);
 }
 
 // ACCESSORS

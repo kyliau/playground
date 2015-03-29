@@ -98,3 +98,42 @@ TEST(CircularDeque, pushFrontAndPushBack)
     }
     EXPECT_TRUE(deque.empty());
 }
+
+TEST(CircularDeque, copyConstructor)
+{
+    CircularDeque<int> deque1;
+    for (int i = 0; i < 3; ++i) {
+        deque1.push_front(i);
+    }
+    CircularDeque<int> deque2(deque1);
+    for (int i = 0; i < 3; ++i) {
+        deque1.pop_back();
+    }
+    EXPECT_TRUE(deque1.empty());
+    for (int i = 0; i < 3; ++i) {
+        EXPECT_EQ(i, deque2.back());
+        deque2.pop_back();
+    }
+    EXPECT_EQ(0, deque2.size());
+    EXPECT_EQ(4, deque2.capacity());
+}
+
+TEST(CircularDeque, copyAssignment)
+{
+    CircularDeque<int> deque1;
+    for (int i = 0; i < 3; ++i) {
+        deque1.push_front(i);
+    }
+    {
+        CircularDeque<int> deque2;
+        for (int i = 3; i < 6; ++i) {
+            deque2.push_front(i);
+        }
+        deque1 = deque2;
+    }
+    for (int i = 5; i >= 3; --i) {
+        EXPECT_EQ(i, deque1.front());
+        deque1.pop_front();
+    }
+    EXPECT_TRUE(deque1.empty());
+}
