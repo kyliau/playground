@@ -1,7 +1,7 @@
-// queue.h
+// circulardeque.h
 
-#ifndef INCLUDED_CIRCULARQUEUE
-#define INCLUDED_CIRCULARQUEUE
+#ifndef INCLUDED_CIRCULARDEQUE
+#define INCLUDED_CIRCULARDEQUE
 
 #include <algorithm>
 #include <memory>
@@ -289,7 +289,7 @@ template <class TYPE>
 inline
 const TYPE& CircularDeque<TYPE>::back() const
 {
-    return d_data[(d_front + d_count) % d_capacity];
+    return d_data[(d_front + d_count - 1) % d_capacity];
 }
 
 #endif
