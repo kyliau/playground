@@ -88,11 +88,23 @@ class CircularDeque
         // container by inserting or erasing elements from it.
 
     void swap(CircularDeque& deque);
+        // Exchanges the content of the container by the content of 'deque',
+        // which is another vector object of the same type. Sizes may differ.
+        // After the call to this member function, the elements in this
+        // container are those which were in x before the call, and the
+        // elements of 'deque' are those which were in this. All iterators,
+        // references and pointers remain valid for the swapped objects.
+
+    void clear() noexcept;
+        // Removes all elements from the vector (which are destroyed), leaving
+        // the container with a size of 0.
+        // A reallocation is not guaranteed to happen, and the vector capacity
+        // is not guaranteed to change due to calling this function.
 
     // ACCESSORS
     bool empty() const;
-            // Returns whether the deque container is empty
-            // (i.e. whether its size is 0).
+        // Returns whether the deque container is empty
+        // (i.e. whether its size is 0).
 
     size_type size() const;
         // Returns the number of elements in the deque container.
@@ -235,6 +247,13 @@ void CircularDeque<TYPE>::swap(CircularDeque& deque)
     std::swap(d_front,    deque.d_front);
     std::swap(d_count,    deque.d_count);
     std::swap(d_capacity, deque.d_capacity);
+}
+
+template <class TYPE>
+inline
+void CircularDeque<TYPE>::clear() noexcept
+{
+    d_count = 0;
 }
 
 // ACCESSORS

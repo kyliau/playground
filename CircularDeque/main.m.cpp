@@ -21,4 +21,7 @@ int main()
 
     v.resize(0);
     cout << "size = " << v.size() << ", capacity = " << v.capacity() << endl;
+
+    v.clear();
+    cout << v[2] << endl;
 }
