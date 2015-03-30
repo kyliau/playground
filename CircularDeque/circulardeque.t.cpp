@@ -37,12 +37,36 @@ TEST(CircularDeque, pushFront)
     EXPECT_EQ(99, deque.back());
 }
 
+TEST(CircularDeque, pushFrontManyElements)
+{
+    CircularDeque<int> deque;
+    for (int i = -10; i < 10; ++i) {
+        deque.push_front(i);
+    }
+    for (int i = 9; i >= -10; --i) {
+        EXPECT_EQ(i, deque.front());
+        deque.pop_front();
+    }
+}
+
 TEST(CircularDeque, pushBack)
 {
     CircularDeque<int> deque;
     deque.push_back(99);
     EXPECT_EQ(99, deque.front());
     EXPECT_EQ(99, deque.back());
+}
+
+TEST(CircularDeque, pushBackManyElements)
+{
+    CircularDeque<int> deque;
+    for (int i = -10; i < 10; ++i) {
+        deque.push_back(i);
+    }
+    for (int i = 9; i >= -10; --i) {
+        EXPECT_EQ(i, deque.back());
+        deque.pop_back();
+    }
 }
 
 TEST(CircularDeque, pushFrontAndBack)
