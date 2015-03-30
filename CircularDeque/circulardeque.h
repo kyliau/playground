@@ -222,14 +222,15 @@ void CircularDeque<TYPE>::pop_back()
 template <class TYPE>
 void CircularDeque<TYPE>::resize(size_type n, value_type value)
 {
-    if (n <= d_count) {
-        d_count = n;
+    if (n <= d_capacity) {
+        if (n < d_count) {
+            d_count = n;
+        }
         return;                                                       // return
     }
-
     DataPtr data(new TYPE[n]);
     for (size_type i = 0; i < d_count; ++i) {
-        data[i] = d_data[(d_front + i) % d_count];
+        data[i] = d_data[(d_front + i) % d_capacity];
     }
     for (size_type i = d_count; i < n; ++i) {
         data[i] = value;
