@@ -137,3 +137,37 @@ TEST(CircularDeque, copyAssignment)
     }
     EXPECT_TRUE(deque1.empty());
 }
+
+TEST(CircularDeque, resize)
+{
+    CircularDeque<int> deque;
+    for (int i = 0; i < 3; ++i) {
+        deque.push_front(i);
+    }
+    deque.resize(1);
+    EXPECT_EQ(2, deque.back());
+    EXPECT_EQ(2, deque.front());
+    EXPECT_EQ(4, deque.capacity());
+    EXPECT_EQ(1, deque.size());
+}
+
+TEST(CircularDeque,constFrontBack)
+{
+    CircularDeque<int> deque;
+    for (int i = -5; i < 10; ++i) {
+        deque.push_back(i);
+        deque.push_front(-i);
+    }
+    {
+        const CircularDeque<int> deq1(deque);
+        EXPECT_EQ(9,  deque.back());
+        EXPECT_EQ(-9, deque.front());
+    }
+    const CircularDeque<int>& deq = deque;
+    for (int i = 9; i >= -5; --i) {
+        EXPECT_EQ(i,  deq.back());
+        EXPECT_EQ(-i, deq.front());
+        deque.pop_back();
+        deque.pop_front();
+    }
+}
