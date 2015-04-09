@@ -20,11 +20,11 @@ rl.on('line', function (str) {
 function isPalindrome(string) {
     var left = 0;
     var right = string.length - 1;
-    while (string[left] == string[right] && left < right) {
+    while (string[left] === string[right] && left < right) {
         ++left;
         --right;
     }
-    return string[left] == string[right];
+    return string[left] === string[right];
 }
 
 // The following function returns the length of longest
