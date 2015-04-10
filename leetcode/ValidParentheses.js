@@ -16,7 +16,7 @@ var isValid = function(s) {
             if ((b === '(' && c !== ')') ||
                 (b === '[' && c !== ']') ||
                 (b === '{' && c !== '}')) {
-                    return false;
+                return false;
             }
         }
     }
