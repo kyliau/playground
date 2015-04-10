@@ -28,9 +28,7 @@ var countAndSay = function(n) {
                 count = 1;
             }
         }
-        if (char === prev[prev.length - 1]) {
-            sequence[i] += count + '' + char;    
-        }
+        sequence[i] += count + '' + char;
     }
     return sequence[n-1];
 };
