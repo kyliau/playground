@@ -2,11 +2,12 @@
 #include <vector>
 #include <iterator>
 using namespace std;
-
 using ConstIt = vector<int>::const_iterator;
 
-// invariant: [first, middle) and [middle, last) must be sorted.
-// output   : [first, last) is sorted.
+// invariant: 
+//   1. first <= middle <= last
+//   2. [first, middle) and [middle, last) must be sorted.
+// output: [first, last) is sorted.
 void merge(ConstIt first, ConstIt middle, ConstIt last) {
 
 	unsigned N = A.size(), M = B.size();
