@@ -1,0 +1,8 @@
+1. What are allocators good for?  
+   http://www.drdobbs.com/the-standard-librarian-what-are-allocato/184403759
+2. C++ 'typename' and 'template'  
+   http://stackoverflow.com/questions/610245/where-and-why-do-i-have-to-put-the-template-and-typename-keywords
+3. Lucene: The Good Parts  
+   http://blog.parsely.com/post/1691/lucene/
+4. ES6 Promises  
+   http://jamesknelson.com/grokking-es6-promises-the-four-functions-you-need-to-avoid-callback-hell/
