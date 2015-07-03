@@ -8,3 +8,5 @@
    http://jamesknelson.com/grokking-es6-promises-the-four-functions-you-need-to-avoid-callback-hell/
 5. Javascript `this`  
    https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html
+6. Learn Python The Hard Way  
+   http://learnpythonthehardway.org/book/
