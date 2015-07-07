@@ -10,3 +10,5 @@
    https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html
 6. Learn Python The Hard Way  
    http://learnpythonthehardway.org/book/
+7. Median of Two Sorted Arrays  
+   http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222
