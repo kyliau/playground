@@ -12,3 +12,5 @@
    http://learnpythonthehardway.org/book/
 7. Median of Two Sorted Arrays  
    http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222
+8. ES6 Iterators and Generators  
+   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
