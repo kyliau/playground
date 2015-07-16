@@ -14,3 +14,6 @@
    http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222
 8. ES6 Iterators and Generators  
    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
+9. Chromium
+   * [Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture)
+   * [Inter-process Communication](https://www.chromium.org/developers/design-documents/inter-process-communication)
