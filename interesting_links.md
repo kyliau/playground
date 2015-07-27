@@ -17,3 +17,5 @@
 9. Chromium
    * [Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture)
    * [Inter-process Communication](https://www.chromium.org/developers/design-documents/inter-process-communication)
+10. A String is not an Error  
+    http://www.devthought.com/2011/12/22/a-string-is-not-an-error/
