@@ -10,8 +10,9 @@
    * [JS Promises Swallow Errors](http://jamesknelson.com/are-es6-promises-swallowing-your-errors/)
 5. Javascript `this`  
    https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html
-6. [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)  
-   [Intermediate Python](http://book.pythontips.com/en/latest/)
+6. Python
+   * [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)  
+   * [Intermediate Python](http://book.pythontips.com/en/latest/)
 7. Median of Two Sorted Arrays  
    http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222
 8. ES6 Iterators and Generators  
