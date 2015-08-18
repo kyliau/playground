@@ -22,3 +22,4 @@
    * [Inter-process Communication](https://www.chromium.org/developers/design-documents/inter-process-communication)
 10. [A String is not an Error](http://www.devthought.com/2011/12/22/a-string-is-not-an-error/)
 11. [Mac OS Memory Management](https://en.wikipedia.org/wiki/Mac_OS_memory_management)
+12. Visitor Pattern
