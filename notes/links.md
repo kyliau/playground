@@ -10,8 +10,8 @@
    * [JS Promises Swallow Errors](http://jamesknelson.com/are-es6-promises-swallowing-your-errors/)
 5. Javascript `this`  
    https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html
-6. Learn Python The Hard Way  
-   http://learnpythonthehardway.org/book/
+6. [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)  
+   [Intermediate Python](http://book.pythontips.com/en/latest/)
 7. Median of Two Sorted Arrays  
    http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222
 8. ES6 Iterators and Generators  
@@ -19,6 +19,5 @@
 9. Chromium
    * [Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture)
    * [Inter-process Communication](https://www.chromium.org/developers/design-documents/inter-process-communication)
-10. A String is not an Error  
-    http://www.devthought.com/2011/12/22/a-string-is-not-an-error/
+10. [A String is not an Error](http://www.devthought.com/2011/12/22/a-string-is-not-an-error/)
 11. [Mac OS Memory Management](https://en.wikipedia.org/wiki/Mac_OS_memory_management)
