@@ -43,43 +43,55 @@ void solution(const vector<Log>& logs, int k)
         }
     }
 
-    k = min<int>(k, logs.size());
+    k = min<int>(k, pageToFreqMap.size());
 
     // at this point we have two options
     // 1. easy option, O(n log n)
     // Dump the hash table into a multimap
-    multimap<int, string> freqToPageMap;
-    for (const auto& p : pageToFreqMap) {
-        freqToPageMap.emplace(p.second, p.first);
-    }
-    for (auto it  = freqToPageMap.crbegin();
-              it != freqToPageMap.crend();
-              ++it) {
-        cout << it->second << "\t" << it->first << endl;
+    // This has the added benefit that the top k most common pages are sorted.
+    {
+        multimap<int, string> freqToPageMap;
+        for (const auto& p : pageToFreqMap) {
+            freqToPageMap.emplace(p.second, p.first);
+        }
+        cout << "First method: " << endl;
+        int count = k;
+        for (auto it  = freqToPageMap.crbegin();
+                  it != freqToPageMap.crend() && count > 0;
+                  ++it) {
+            cout << it->second << "\t" << it->first << endl;
+            --count;
+        }
     }
 
     // 2. O(n)
     // Use the k-th largest algorithm
+    // Since we expect to split the array into roughly equal halves on average,
     // Recurrence relation : T(n) = T(n/2) + O(n) = O(n)
-    vector<PageToFreqMap::value_type> v(pageToFreqMap.begin(),
-                                        pageToFreqMap.end());
-    struct {
-        bool operator()(const PageToFreqMap::value_type& x,
-                        const PageToFreqMap::value_type& y) const {
-            return x.second < y.second;
-        }
-    } comparator;
+    // Top k most common pages are not sorted
 
-    nth_element(v.begin(), v.begin() + k - 1, v.end(), comparator);
+    vector<pair<string, int>> v(pageToFreqMap.begin(), pageToFreqMap.end());
+
+    // Note, the use of 'auto' in lambda expression requires C++14
+    nth_element(v.begin(),
+                v.begin() + k - 1,
+                v.end(),
+                [](const auto& x, const auto& y){ return x.second > y.second; });
+
+    cout << endl << "Second method: " << endl;
+    for (const auto& p : v) {
+        cout << p.first << " " << p.second << endl;
+    }
 }
 
 int main()
 {
-    vector<Log> logs = {{0, "http://www.google.com" },
-                        {1, "http://www.yahoo.com"  },
-                        {2, "http://www.apple.com"  },
-                        {3, "http://www.google.com" },
-                        {3, "http://www.google.com" },
-                        {4, "http://www.apple.com"  }};
-    solution(logs, 3);
+    vector<Log> logs = {{0, "http://www.google.com"    },
+                        {1, "http://www.yahoo.com"     },
+                        {2, "http://www.apple.com"     },
+                        {2, "http://www.microsoft.com" },
+                        {3, "http://www.google.com"    },
+                        {3, "http://www.google.com"    },
+                        {4, "http://www.apple.com"     }};
+    solution(logs, 1);
 }
