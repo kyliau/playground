@@ -14,11 +14,13 @@
 // are interleaved. Assume you have unlimited RAM.
 
 #include <iostream>
-#include <set>
 #include <unordered_map>
 #include <string>
 #include <vector>
 #include <random>
+#include <map>
+#include <algorithm>
+#include <cassert>
 using namespace std;
 
 struct Log {
@@ -26,20 +28,36 @@ struct Log {
     string page;
 };
 
-size_t partition()
+void findKLargest(vector<pair<const string, int>> *v, int k)
 {
-    return 0;
+    assert(!v->empty());
+    int left = 0;
+    int right = v->size() - 1;
+    while (left <= right) {
+        default_random_engine gen((random_device())());
+        // generate random int in interval [left, right]
+        uniform_int_distribution<int> dis(left, right);
+        int pivot = dis(gen);
+        const auto& pivotElement = (*v)[pivot];
+        // note, use of auto in lambda parameter requires C++14
+        std::partition(next(v->begin(), left),
+                                  next(v->begin(), right + 1),
+                                  [pivotElement](const auto& p){ return p.second < pivotElement.second; });
+        int p = distance(v->begin(), v->end());
+        if (p == k - 1) {
+            // print everything from p onwards
+        } else if (p > k - 1) {
+            right = p - 1;
+        } else {    // p < k - 1
+            left  = p + 1;
+        }
+    }
 }
 
-int partition(vector<pair<string, size_t>> *v, int left, int right, int pivot)
-{
-    
-}
-
-void firstSolution(const vector<Log>& logs, size_t k)
+void solution(const vector<Log>& logs, int k)
 {
     // map the page to the frequency
-    typedef unordered_map<string, size_t> PageToFreqMap;
+    typedef unordered_map<string, int> PageToFreqMap;
     PageToFreqMap pageToFreqMap;
 
     for (const Log& log : logs) {
@@ -51,27 +69,27 @@ void firstSolution(const vector<Log>& logs, size_t k)
         }
     }
 
+    k = min<int>(k, logs.size());
+
+    // at this point we have two options
+    // 1. easy option, O(n log n)
+    // Dump the hash table into a multimap
+    multimap<int, string> freqToPageMap;
+    for (const auto& p : pageToFreqMap) {
+        freqToPageMap.emplace(p.second, p.first);
+    }
+    for (auto it  = freqToPageMap.crbegin();
+              it != freqToPageMap.crend();
+              ++it) {
+        cout << it->second << "\t" << it->first << endl;
+    }
+
+    // 2. O(n)
+    // Use the k-th largest algorithm
+    // Recurrence relation : T(n) = T(n/2) + O(n) = O(n)
     vector<PageToFreqMap::value_type> v(pageToFreqMap.begin(),
                                         pageToFreqMap.end());
-    int left = 0, right = v.size() - 1;
-    while (left <= right) {
-        default_random_engine gen((random_device())());
-        // generate random int in [left, right]
-        uniform_int_distribution<int> dis(left, right);
-        int p = partition(&v, left, right, dis(gen));
-        if (p == k - 1) {
-            int i = p, j = k;
-            while (i >= 0 && j >= 0) {
-                cout << v[i].second << " " << v[i].first << endl;
-                --i;
-                --j;
-            }
-        } else if (p > k - 1) {
-            right = p - 1;
-        } else {    // p < k - 1
-            left  = p + 1;
-        }
-    }
+    findKLargest(&v, k);
 }
 
 int main()
@@ -79,8 +97,8 @@ int main()
     vector<Log> logs = {{0, "http://www.google.com" },
                         {1, "http://www.yahoo.com"  },
                         {2, "http://www.apple.com"  },
-                        {3, "htpp://www.google.com" },
-                        {3, "htpp://www.google.com" },
+                        {3, "http://www.google.com" },
+                        {3, "http://www.google.com" },
                         {4, "http://www.apple.com"  }};
-    firstSolution(logs, 3);
+    solution(logs, 3);
 }
