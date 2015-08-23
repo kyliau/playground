@@ -28,32 +28,6 @@ struct Log {
     string page;
 };
 
-void findKLargest(vector<pair<const string, int>> *v, int k)
-{
-    assert(!v->empty());
-    int left = 0;
-    int right = v->size() - 1;
-    while (left <= right) {
-        default_random_engine gen((random_device())());
-        // generate random int in interval [left, right]
-        uniform_int_distribution<int> dis(left, right);
-        int pivot = dis(gen);
-        const auto& pivotElement = (*v)[pivot];
-        // note, use of auto in lambda parameter requires C++14
-        std::partition(next(v->begin(), left),
-                                  next(v->begin(), right + 1),
-                                  [pivotElement](const auto& p){ return p.second < pivotElement.second; });
-        int p = distance(v->begin(), v->end());
-        if (p == k - 1) {
-            // print everything from p onwards
-        } else if (p > k - 1) {
-            right = p - 1;
-        } else {    // p < k - 1
-            left  = p + 1;
-        }
-    }
-}
-
 void solution(const vector<Log>& logs, int k)
 {
     // map the page to the frequency
@@ -89,7 +63,14 @@ void solution(const vector<Log>& logs, int k)
     // Recurrence relation : T(n) = T(n/2) + O(n) = O(n)
     vector<PageToFreqMap::value_type> v(pageToFreqMap.begin(),
                                         pageToFreqMap.end());
-    findKLargest(&v, k);
+    struct {
+        bool operator()(const PageToFreqMap::value_type& x,
+                        const PageToFreqMap::value_type& y) const {
+            return x.second < y.second;
+        }
+    } comparator;
+
+    nth_element(v.begin(), v.begin() + k - 1, v.end(), comparator);
 }
 
 int main()
