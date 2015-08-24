@@ -9,7 +9,7 @@
    * [Promise Patterns](https://www.promisejs.org/patterns/)
    * [JS Promises Swallow Errors](http://jamesknelson.com/are-es6-promises-swallowing-your-errors/)
 4. Javascript
-   * [`this`](https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html)
+   * [`this` parameter](https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html)
    * [ES6 Iterators and Generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
 5. Python
    * [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)  
