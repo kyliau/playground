@@ -14,8 +14,8 @@
 5. Python
    * [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)  
    * [Intermediate Python](http://book.pythontips.com/en/latest/)
-6. Median of Two Sorted Arrays  
-   http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222
+6. Algorithms
+   * [Median of Two Sorted Arrays](http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222)
 7. Chromium
    * [Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture)
    * [Inter-process Communication](https://www.chromium.org/developers/design-documents/inter-process-communication)
