@@ -3,7 +3,7 @@
    * [`typename` and `template`](http://stackoverflow.com/questions/610245/where-and-why-do-i-have-to-put-the-template-and-typename-keywords)
    * [lvalue and rvalue](http://eli.thegreenplace.net/2011/12/15/understanding-lvalues-and-rvalues-in-c-and-c)
 2. ES6 Promises  
-   * http://jamesknelson.com/grokking-es6-promises-the-four-functions-you-need-to-avoid-callback-hell/
+   * [Introduction to ES6 Promises](http://jamesknelson.com/grokking-es6-promises-the-four-functions-you-need-to-avoid-callback-hell/)
    * [Promise Patterns](https://www.promisejs.org/patterns/)
    * [JS Promises Swallow Errors](http://jamesknelson.com/are-es6-promises-swallowing-your-errors/)
 3. Javascript
