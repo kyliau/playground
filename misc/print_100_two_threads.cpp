@@ -6,14 +6,21 @@
 #include <thread>
 #include <iostream>
 #include <mutex>
+#include <condition_variable>
 
 std::mutex mtx;
+std::condition_variable cv;
 
 void print(int max, bool isEven)
 {
     for (int i = isEven ? 0 : 1; i < max; i += 2) {
-        std::lock_guard<std::mutex> lock(mtx);
+        std::unique_lock<std::mutex> lock(mtx);
+        if (i > 0) {
+            cv.wait(lock);
+        }
         std::cout << i + 1 << std::endl;
+        lock.unlock();
+        cv.notify_one();
     }
 }
 
