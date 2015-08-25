@@ -14,6 +14,7 @@
    * [Intermediate Python](http://book.pythontips.com/en/latest/)
 5. Algorithms
    * [Median of Two Sorted Arrays](http://www.drdobbs.com/parallel/finding-the-median-of-two-sorted-arrays/240169222)
+   * [Fisher–Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
 6. Chromium
    * [Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture)
    * [Inter-process Communication](https://www.chromium.org/developers/design-documents/inter-process-communication)
