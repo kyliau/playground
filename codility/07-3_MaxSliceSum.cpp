@@ -18,3 +18,6 @@ int solution(vector<int> &A) {
     return max_sum;
 
 }
+
+// Variant of this problem:
+// Show the left and right index of the subsequence (subarray)
