@@ -9,6 +9,7 @@
 3. Javascript
    * [`this` parameter](https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html)
    * [ES6 Iterators and Generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
+   * [The JavaScript Event Loop: Explained](http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained/)
 4. Python
    * [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)  
    * [Intermediate Python](http://book.pythontips.com/en/latest/)
