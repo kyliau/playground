@@ -1,3 +1,5 @@
+// Implement atoi to convert a string to an integer.
+
 #include <limits>
 #include <iostream>
 
