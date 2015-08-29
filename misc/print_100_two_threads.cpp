@@ -5,6 +5,7 @@
 
 #include <thread>
 #include <iostream>
+#include <chrono>
 #include <mutex>
 #include <condition_variable>
 
@@ -15,9 +16,7 @@ void print(int max, bool isEven)
 {
     for (int i = isEven ? 0 : 1; i < max; i += 2) {
         std::unique_lock<std::mutex> lock(mtx);
-        if (i > 0) {
-            cv.wait(lock);
-        }
+        cv.wait(lock);
         std::cout << i + 1 << std::endl;
         lock.unlock();
         cv.notify_one();
@@ -29,6 +28,9 @@ int main()
     int MAX = 100;
     std::thread printEven(print, MAX, true);
     std::thread printOdd( print, MAX, false);
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    cv.notify_one();
 
     printEven.join();
     printOdd.join();
