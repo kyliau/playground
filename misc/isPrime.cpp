@@ -1,5 +1,7 @@
 // Reference : https://codility.com/media/train/8-PrimeNumbers.pdf
 
+#include <iostream>
+
 bool isPrime(int n) {
   if (n <= 1) {
     return false;
@@ -13,4 +15,12 @@ bool isPrime(int n) {
     }
   }
   return true;
+}
+
+int main() {
+    int x;
+    while (std::cin >> x) {
+        std::cout << x << (isPrime(x) ? " is " : " is not ") << "prime."
+                  << std::endl;
+    }
 }
