@@ -1,7 +1,8 @@
 // Count the number of prime numbers less than a non-negative number, n.
 
-// Trying to store only odd numbers
-// Added complexity, but doesn't seem to improve performance...
+// Store only odd numbers
+// Interesting observation:
+// Performance vector < unique_ptr < raw pointer!
 
 class Prime {
 private:
@@ -14,6 +15,13 @@ public:
         if (d_sieve.size() > 0) {
             d_sieve[0] = false;
         }
+        
+        // Use unique_ptr or raw pointer
+        // d_sieve = unique_ptr<bool[]>(new bool[n / 2]);
+        // d_sieve = new bool[n / 2];
+        // for (int i = 0; i < n / 2; ++i) {
+        //     d_sieve[i] = (i == 0) ? false : true;
+        // }
     }
     inline
     bool isPrime(int n) {
