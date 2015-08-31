@@ -1,3 +1,5 @@
+// Reference : https://codility.com/media/train/8-PrimeNumbers.pdf
+
 bool isPrime(int n) {
   if (n <= 1) {
     return false;
