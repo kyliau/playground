@@ -10,7 +10,7 @@ public:
         // map an integer to its last seen index
         unordered_map<int, size_t> myMap;
         for (size_t i = 0; i < nums.size(); ++i) {
-            int n = nums[i];
+            int n   = nums[i];
             auto it = myMap.find(n);
             if (it != myMap.end() && i - it->second <= k) {
                 return true;
@@ -50,12 +50,12 @@ public:
                     if (i - p->index <= k) {
                         return true;
                     }
-                    found = true;
+                    found    = true;
                     p->index = i;
                 }
             }
             if (!found) {
-                Node *p = new Node();
+                Node *p  = new Node();
                 p->num   = n;
                 p->index = i;
                 p->next  = bin[h];
