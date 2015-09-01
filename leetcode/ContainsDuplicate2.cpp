@@ -42,8 +42,8 @@ public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
         Node *bin[NHASH] = { 0 };
         for (size_t i = 0; i < nums.size(); ++i) {
-            int n = nums[i];
-            size_t h = myhash(n);
+            int n      = nums[i];
+            size_t h   = myhash(n);
             bool found = false;
             for (Node *p = bin[h]; p != nullptr && !found; p = p->next) {
                 if (p->num ==n) {
