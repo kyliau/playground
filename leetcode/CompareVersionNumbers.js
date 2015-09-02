@@ -15,8 +15,13 @@
  * @return {number}
  */
 var compareVersion = function(version1, version2) {
-    var v1 = version1.split(".");
-    var v2 = version2.split(".");
+    function f(version) {
+        return version.split(".").map(function(n) {
+            return +n;
+        });
+    }
+    var v1 = f(version1);
+    var v2 = f(version2);
     var n  = Math.max(v1.length, v2.length);
     for (var i = 0; i < n; ++i) {
         var x = v1[i] || 0;
