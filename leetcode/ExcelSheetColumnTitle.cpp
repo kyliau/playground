@@ -17,7 +17,9 @@ public:
             result = char((n % 26) + 'A') + result;
             n /= 26;
         }
-        //reverse(result.begin(), result.end());
+        // From the test results using reverse is slower than
+        // string concatenation using operator+
+        // reverse(result.begin(), result.end());
         return result;
     }
 };
