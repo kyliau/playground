@@ -25,10 +25,10 @@ public:
                 n2 = n2 * 10 + (*v2 - '0');
                 ++v2;
             }
-            if (*v1 == '.') {
+            if (v1 != version1.end()) {
                 ++v1;
             }
-            if (*v2 == '.') {
+            if (v2 != version2.end()) {
                 ++v2;
             }
             if (n1 > n2) {
