@@ -12,13 +12,19 @@
 
 #include <iostream>
 #include <cstdint>
+#include <vector>
+#include <algorithm>
+#include <cassert>
 
 class Bitmap {
   private:
-    static const int SIZE = 10e7 / 8;
+    static const int MAX  = 1e7;
+    static const int SIZE = MAX / 8;    // approx. 1 MB
     uint8_t d_array[SIZE];
 
   public:
+    Bitmap();
+
     bool get(int x) const;
 
     void set(int x);
@@ -28,16 +34,18 @@ class Bitmap {
 inline
 Bitmap::Bitmap()
 {
+    std::cout << "Constructor begin" << std::endl;
     // use a loop, or we can be fancy and use memset
     for (int i = 0; i < SIZE; ++i) {
         d_array[i] = 0;
     }
+    std::cout << "Constructor end" << std::endl;
 }
 
 inline
 bool Bitmap::get(int x) const
 {
-    if (x < 0) {
+    if (x < 0 || x >= MAX) {
         return false;
     }
     int index        = x / 8;
@@ -46,9 +54,9 @@ bool Bitmap::get(int x) const
 }
 
 inline
-void Bitmap::set(int x) const
+void Bitmap::set(int x)
 {
-    if (x < 0) {
+    if (x < 0 || x >= MAX) {
         return;                                                       // RETURN
     }
     int index        = x / 8;
@@ -56,6 +64,14 @@ void Bitmap::set(int x) const
     d_array[index] |= (1 << bytePosition);
 }
 
-
-
-
+int main()
+{
+    Bitmap bitmap;
+    for (int i = 0; i < 100; i += 2) {
+        std::cout << i << std::endl;
+        bitmap.set(i);
+        assert(bitmap.get(i));
+        assert(!bitmap.get(i + 1));
+    }
+    return 0;
+}
