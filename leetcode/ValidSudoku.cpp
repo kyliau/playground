@@ -35,7 +35,7 @@ public:
         }
         return true;
     }
-    inline bool isValidBox(const Board& board, int box) {
+    inline bool isValidBox(const Board& board, const int box) {
         int rowStart = (box / 3) * 3;
         int colStart = (box % 3) * 3;
         bool count[SIZE] = { false };
