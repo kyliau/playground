@@ -15,6 +15,6 @@ public:
         return result;
     }
     int uniquePaths(int m, int n) {
-        return nChooseK(m + n - 3, m - 1);
+        return nChooseK(m + n - 2, m - 1);
     }
 };
