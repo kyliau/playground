@@ -8,7 +8,9 @@
 // then overwrite array with total number of 0's, then 1's and followed by 2's.
 // Could you come up with an one-pass algorithm using only constant space?
 
-// Two-pass algorithm using constant space is easy
+// Hint from EPI
+// Think about the partition step in quicksort.
+// Two-pass algorithm using constant space is easy.
 
 class Solution {
 public:
@@ -21,8 +23,8 @@ public:
         int larger  = nums.size() - 1;
         int pivotValue = 1;
         while (equal <= larger) {
-            int& n = nums[equal];
             // nums[equal] is the incoming unclassified element.
+            int& n = nums[equal];
             if (n < pivotValue) {
                 swap(n, nums[smaller]);
                 ++smaller;
