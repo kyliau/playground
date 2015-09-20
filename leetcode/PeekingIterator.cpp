@@ -19,15 +19,15 @@
 // **DO NOT** modify the interface for Iterator.
 class Iterator {
     struct Data;
-	Data* data;
+    Data* data;
 public:
-	Iterator(const vector<int>& nums);
-	Iterator(const Iterator& iter);
-	virtual ~Iterator();
-	// Returns the next element in the iteration.
-	int next();
-	// Returns true if the iteration has more elements.
-	bool hasNext() const;
+    Iterator(const vector<int>& nums);
+    Iterator(const Iterator& iter);
+    virtual ~Iterator();
+    // Returns the next element in the iteration.
+    int next();
+    // Returns true if the iteration has more elements.
+    bool hasNext() const;
 };
 
 
@@ -36,38 +36,38 @@ private:
     int  d_peekedElement;
     bool d_peekedNext;
 public:
-	PeekingIterator(const vector<int>& nums)
-	: Iterator(nums)
-	, d_peekedElement(0)
-	, d_peekedNext(false)
-	{
-	    // Initialize any member here.
-	    // **DO NOT** save a copy of nums and manipulate it directly.
-	    // You should only use the Iterator interface methods.
-	}
+    PeekingIterator(const vector<int>& nums)
+    : Iterator(nums)
+    , d_peekedElement(0)
+    , d_peekedNext(false)
+    {
+        // Initialize any member here.
+        // **DO NOT** save a copy of nums and manipulate it directly.
+        // You should only use the Iterator interface methods.
+    }
 
     // Returns the next element in the iteration without advancing the iterator.
-	int peek() {
-	    if (d_peekedNext) {
-	        return d_peekedElement;
-	    }
-	    assert(Iterator::hasNext());
-	    d_peekedElement = Iterator::next();
-	    d_peekedNext    = true;
-	    return d_peekedElement;
-	}
+    int peek() {
+        if (d_peekedNext) {
+            return d_peekedElement;
+        }
+        assert(Iterator::hasNext());
+        d_peekedElement = Iterator::next();
+        d_peekedNext    = true;
+        return d_peekedElement;
+    }
 
-	// hasNext() and next() should behave the same as in the Iterator interface.
-	// Override them if needed.
-	int next() {
-	    if (d_peekedNext) {
-	        d_peekedNext = false;
-	        return d_peekedElement;
-	    }
-	    return Iterator::next();
-	}
+    // hasNext() and next() should behave the same as in the Iterator interface.
+    // Override them if needed.
+    int next() {
+        if (d_peekedNext) {
+            d_peekedNext = false;
+            return d_peekedElement;
+        }
+        return Iterator::next();
+    }
 
-	bool hasNext() const {
-	    return d_peekedNext ? true : Iterator::hasNext();
-	}
+    bool hasNext() const {
+        return d_peekedNext ? true : Iterator::hasNext();
+    }
 };
