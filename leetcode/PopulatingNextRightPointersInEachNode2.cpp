@@ -44,6 +44,7 @@ public:
         helper(v, node->right, level + 1);
     }
     void connect(TreeLinkNode *root) {
+        // this solution uses O(log h) space
         vector<TreeLinkNode *> v;
         helper(&v, root, 0);
     }
