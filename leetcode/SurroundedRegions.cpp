@@ -21,6 +21,54 @@ private:
             d_q.emplace(i, j);
         }
     }
+    void explore(Board& b) {
+        while (!d_q.empty()) {
+            const auto& p = d_q.front();
+            int x = p.first;
+            int y = p.second;
+            d_q.pop();
+            b[x][y] = 'V';
+            emplaceIfValid(b, x - 1, y);
+            emplaceIfValid(b, x + 1, y);
+            emplaceIfValid(b, x, y - 1);
+            emplaceIfValid(b, x, y + 1);
+        }
+    }
+public:
+    void solve(vector<vector<char>>& board) {
+        if (board.empty()) {
+            return;
+        }
+        m = board.size();
+        n = board[0].size();
+        for (int i = 0; i < m; ++i) {
+            emplaceIfValid(board, i, 0);
+            emplaceIfValid(board, i, n - 1);
+        }
+        for (int j = 0; j < n; ++j) {
+            emplaceIfValid(board, 0, j);
+            emplaceIfValid(board, m - 1, j);
+        }
+        explore(board);
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                board[i][j] = board[i][j] == 'V' ? 'O' : 'X';
+            }
+        }
+    }
+};
+
+// This solution is too slow - why?
+class Solution {
+private:
+    typedef vector<vector<char>> Board;
+    queue<pair<int, int>> d_q;
+    int                   m, n;
+    inline void emplaceIfValid(const Board& b, int i, int j) {
+        if (i >= 0 && i < m && j >= 0 && j < n && b[i][j] == 'O') {
+            d_q.emplace(i, j);
+        }
+    }
     void explore(Board& b, int i, int j) {
         emplaceIfValid(b, i, j);
         while (!d_q.empty()) {
