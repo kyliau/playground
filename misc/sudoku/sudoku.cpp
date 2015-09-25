@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <cassert>
 using namespace std;
 
 class Solution {
@@ -10,7 +11,7 @@ private:
     typedef pair<int, int>       Cell;
     static const int  SIZE  = 9;
     const char EMPTY = '.';
-    
+
     bool isValidRow(const Board& board, const int row) {
         bool count[SIZE] = { false };
         for (int col = 0; col < SIZE; ++col) {
@@ -54,10 +55,10 @@ private:
         }
         return true;
     }
-    
+
     int findNextEmptyCell(const Board& board, Cell *cell) {
         for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
                 if (board[i][j] == EMPTY) {
                     *cell = {i, j};
                     return 0;
@@ -76,22 +77,32 @@ private:
         if (0 != findNextEmptyCell(board, &cell)) {
             return false;
         }
-        for (int i = 1; i <= SIZE; ++i) {
-            board[cell.first][cell.second] = (char)('0' + i);
+
+        for (int i = 0; i < SIZE; ++i) {
+            board[cell.first][cell.second] = (char)('1' + i);
+            cout << "Empty cell: (" << cell.first << ", " << cell.second << ")\n";
+            cout << "Trying " << (char)('0' + i) << '\t';
+            //char x; cin >> x;
+            //cout << "Row " << cell.first  << " is " << isValidRow(board, cell.first) << endl;
+            //cout << "Col " << cell.second << " is " << isValidColumn(board, cell.second) << endl;
+            //cout << "Box " << getBoxNumber(cell) << " is " << isValidBox(board, getBoxNumber(cell)) << endl;
             if(isValidRow(board, cell.first) &&
                isValidColumn(board, cell.second) &&
                isValidBox(board, getBoxNumber(cell))) {
+                cout << "VALID" << endl;
                 if (helper(board)) {
                     return true;
                 }
             }
+            cout << "INVALID" << endl;
         }
         board[cell.first][cell.second] = EMPTY;
         return false;
     }
 public:
     void solveSudoku(Board& board) {
-        helper(board);
+        bool solved = helper(board);
+        assert(solved);
     }
 };
 
@@ -114,6 +125,7 @@ int main()
     }
     Solution s;
     s.solveSudoku(board);
+    cout << "\nSolved:\n";
     for (const auto& row : board) {
         for (char c : row) {
             cout << c << " ";
