@@ -10,6 +10,9 @@
 void shuffle(std::vector<int>& v)
 {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    // instead of using seed, consider using std::random_device
+    // std::random_device rd;
+    // std::default_random_engine generator(rd());
     std::default_random_engine generator(seed);
     
     for (size_t i = 0; i < v.size(); ++i) {
