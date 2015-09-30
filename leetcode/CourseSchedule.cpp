@@ -27,33 +27,36 @@
 // explaining the basic concepts of Topological Sort.
 // Topological sort could also be done via BFS.
 
+// Test case
+// 8
+// [[1,0],[2,6],[1,7],[6,4],[7,0],[0,5]]
+
 class Solution {
-private:
-    static const int UNEXPLORED = -1;
-    bool visit(const vector<vector<int>>& v, int course, vector<int> *visited, int *currentLabel) {
-        int label = visited->at(course);
-        if (label > 0) {
-            return *currentLabel < label;
+    bool visit(const vector<vector<int>>& v, int course, vector<bool> *visited, vector<bool> *seen) {
+        if (visited->at(course)) {
+            return true;
         }
+        (*visited)[course] = true;
+        (*seen)[course]    = true;
         for (int c : v[course]) {
-            if (!visit(v, c, visited, currentLabel)) {
+            if (seen->at(c) || !visit(v, c, visited, seen)) {
+                cout << "I am " << course << " and I've seen " << c << " already!" << endl;
                 return false;
             }
         }
-        (*visited)[course] = *currentLabel;
-        --(*currentLabel);
         return true;
     }
 public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
         vector<vector<int>> v(numCourses);
-        vector<int> visited(numCourses, UNEXPLORED);
+        vector<bool> visited(numCourses, false);
         for (const auto& p : prerequisites) {
             v[p.second].emplace_back(p.first);
         }
-        int label = numCourses;
+        vector<bool> seen(numCourses, false);
         for (int i = 0; i < numCourses; ++i) {
-            if (!visit(v, i, &visited, &label)) {
+            std::fill(seen.begin(), seen.end(), false);
+            if (!visit(v, i, &visited, &seen)) {
                 return false;
             }
         }
