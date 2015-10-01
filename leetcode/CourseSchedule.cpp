@@ -32,18 +32,17 @@
 // [[1,0],[2,6],[1,7],[6,4],[7,0],[0,5]]
 
 class Solution {
-    bool visit(const vector<vector<int>>& v, int course, vector<bool> *visited, vector<bool> *seen) {
+    bool visit(const vector<vector<int>>& v, int course, int origin, vector<bool> *visited) {
         if (visited->at(course)) {
             return true;
         }
         (*visited)[course] = true;
-        (*seen)[course]    = true;
         for (int c : v[course]) {
-            if (seen->at(c) || !visit(v, c, visited, seen)) {
-                cout << "I am " << course << " and I've seen " << c << " already!" << endl;
+            if (c == origin || !visit(v, c, origin, visited)) {
                 return false;
             }
         }
+        (*visited)[course] = false;
         return true;
     }
 public:
@@ -53,10 +52,8 @@ public:
         for (const auto& p : prerequisites) {
             v[p.second].emplace_back(p.first);
         }
-        vector<bool> seen(numCourses, false);
         for (int i = 0; i < numCourses; ++i) {
-            std::fill(seen.begin(), seen.end(), false);
-            if (!visit(v, i, &visited, &seen)) {
+            if (!visit(v, i, i, &visited)) {
                 return false;
             }
         }
