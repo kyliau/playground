@@ -1,5 +1,3 @@
-// TODO: wip
-
 // There are a total of n courses you have to take, labeled from 0 to n - 1.
 // Some courses may have prerequisites, for example to take course 0
 // you have to first take course 1, which is expressed as a pair: [0,1]
@@ -31,18 +29,28 @@
 // 8
 // [[1,0],[2,6],[1,7],[6,4],[7,0],[0,5]]
 
+// Note:
+// If we want to know how many cycles exist in the graph then we need to use
+// either Karasuba or Tarjan's strongly-connected component algorithm
+// The solution below detects if there is *any* cycle in the graph
+
 class Solution {
-    bool visit(const vector<vector<int>>& v, int course, int origin, vector<bool> *visited) {
+private:
+    bool visit(const vector<vector<int>>& v, int course, vector<bool> *visited, vector<bool> *onStack) {
+        if (onStack->at(course)) {
+            return false;
+        }
         if (visited->at(course)) {
             return true;
         }
         (*visited)[course] = true;
+        (*onStack)[course] = true;
         for (int c : v[course]) {
-            if (c == origin || !visit(v, c, origin, visited)) {
+            if (!visit(v, c, visited, onStack)) {
                 return false;
             }
         }
-        (*visited)[course] = false;
+        (*onStack)[course] = false;
         return true;
     }
 public:
@@ -50,10 +58,14 @@ public:
         vector<vector<int>> v(numCourses);
         vector<bool> visited(numCourses, false);
         for (const auto& p : prerequisites) {
+            if (p.first == p.second) {
+                return false;   // self loop
+            }
             v[p.second].emplace_back(p.first);
         }
+        vector<bool> onStack(numCourses, false);
         for (int i = 0; i < numCourses; ++i) {
-            if (!visit(v, i, i, &visited)) {
+            if (!visit(v, i, &visited, &onStack)) {
                 return false;
             }
         }
