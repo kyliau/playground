@@ -36,7 +36,10 @@
 
 class Solution {
 private:
-    bool visit(const vector<vector<int>>& v, int course, vector<bool> *visited, vector<bool> *onStack) {
+    bool visit(const vector<vector<int>>&  v,
+               int                         course,
+               vector<bool>               *visited,
+               vector<bool>               *onStack) {
         if (onStack->at(course)) {
             return false;
         }

@@ -55,7 +55,16 @@ private:
         }
         return true;
     }
-
+    bool isValidSudoku(const Board& board) {
+        for (int i = 0; i < SIZE; ++i) {
+            if (!isValidRow(board, i) ||
+                !isValidColumn(board, i) ||
+                !isValidBox(board, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
     int findNextEmptyCell(const Board& board, Cell *cell) {
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -75,32 +84,21 @@ private:
     bool helper(Board& board) {
         Cell cell;
         if (0 != findNextEmptyCell(board, &cell)) {
-            return false;
+            return true;
         }
 
         for (int i = 0; i < SIZE; ++i) {
             board[cell.first][cell.second] = (char)('1' + i);
-            cout << "Empty cell: (" << cell.first << ", " << cell.second << ")\n";
-            cout << "Trying " << (char)('0' + i) << '\t';
-            //char x; cin >> x;
-            //cout << "Row " << cell.first  << " is " << isValidRow(board, cell.first) << endl;
-            //cout << "Col " << cell.second << " is " << isValidColumn(board, cell.second) << endl;
-            //cout << "Box " << getBoxNumber(cell) << " is " << isValidBox(board, getBoxNumber(cell)) << endl;
-            if(isValidRow(board, cell.first) &&
-               isValidColumn(board, cell.second) &&
-               isValidBox(board, getBoxNumber(cell))) {
-                cout << "VALID" << endl;
-                if (helper(board)) {
-                    return true;
-                }
+            if (isValidSudoku(board) && helper(board)) {
+                return true;
             }
-            cout << "INVALID" << endl;
         }
         board[cell.first][cell.second] = EMPTY;
         return false;
     }
 public:
     void solveSudoku(Board& board) {
+        assert(isValidSudoku(board));
         bool solved = helper(board);
         assert(solved);
     }
