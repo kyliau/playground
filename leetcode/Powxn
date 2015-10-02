@@ -5,6 +5,16 @@
 class Solution {
 public:
     double myPow(double x, int n) {
-        
+        int absN = abs(n);
+        int size = (absN + 3) / 2;
+        vector<double> v(size, 1);
+        for (int i = 1; i < size; ++i) {
+            v[i] = x * v[i - 1];
+        }
+        int half = absN / 2;
+        double result = v[half] * v[absN - half];
+        return n > 0 ? result : 1 / result;
     }
 };
+
+// failed test case: 0.00001 ^ 2147483647
