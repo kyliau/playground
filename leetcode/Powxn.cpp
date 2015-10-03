@@ -11,7 +11,6 @@ class Solution {
     }
 public:
     double myPow(double x, int n) {
-        return n > 0 ? positivePow(x, n)
-                     : 1 / positivePow(x, -n);
+        return n > 0 ? positivePow(x, n) : 1 / positivePow(x, -n);
     }
 };
