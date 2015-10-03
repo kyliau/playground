@@ -2,6 +2,15 @@
 
 //Implement pow(x, n).
 
+// Notes this is O(n) ...
+// We could do better
+// For example to compute x^4,
+// we only need x^2 * x^2
+// and to get x^2 we use x * x
+// in other words, we don't have to compute and store x^3
+// to compute x^7 we compute x^4 * x^2 * x
+// to compute x^19 we compute x^16 * x^2 * x
+
 class Solution {
 public:
     double myPow(double x, int n) {
