@@ -1,3 +1,5 @@
+// TODO: WIP
+
 // Given an array of non-negative integers, you are initially positioned at the
 // first index of the array.
 // Each element in the array represents your maximum jump length at that
@@ -8,30 +10,28 @@
 // A = [3,2,1,0,4], return false.
 
 class Solution {
-    bool canJump(vector<bool> *e, const vector<int>& nums, int pos) {
+    bool canJump(vector<int>& nums, int pos) {
         int n = nums.size();
-        if (pos >= n) {
+        if (pos >= n || nums[pos] == -1) {
             return false;
         }
-        if (e->at(pos)) {
-            return false;
-        }
-        int numspos = nums[pos];
-        if (numspos >= n - pos - 1) {
+        if (nums[pos] >= n - pos - 1) {
             return true;
         }
-        int d = min(numspos, n - pos -1);
-        for (int i = d; i > 0; --i) {
-            if (canJump(e, nums, pos + i)) {
+        int last = -1;
+        for (int i = nums[pos]; i > 0; --i) {
+            if (nums[pos + i] == last + 1) {
+                nums[pos + i] = -1;
+            } else if (canJump(nums, pos + i)) {
                 return true;
             }
+            last = nums[pos + i];
         }
-        (*e)[pos] = true;
+        nums[pos] = -1;
         return false;
     }
 public:
     bool canJump(vector<int>& nums) {
-        vector<bool> explored(nums.size(), false);
-        return canJump(&explored, nums, 0);
+        return canJump(nums, 0);
     }
 };
