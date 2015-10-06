@@ -1,5 +1,3 @@
-// TODO: WIP
-
 // Given an array of non-negative integers, you are initially positioned at the
 // first index of the array.
 // Each element in the array represents your maximum jump length at that
@@ -18,16 +16,23 @@ class Solution {
         if (nums[pos] >= n - pos - 1) {
             return true;
         }
-        int last = -1;
-        for (int i = nums[pos]; i > 0; --i) {
-            if (nums[pos + i] == last + 1) {
-                nums[pos + i] = -1;
-            } else if (canJump(nums, pos + i)) {
-                return true;
+        // jump to the farthest location
+        int p = pos + nums[pos];
+        while (p > pos) {
+            if (nums[p] != -1) {
+                // visit the farthest position
+                if (canJump(nums, p)) {
+                    return true;
+                } else {
+                    // anything before p that is <= nums[p] + distance from p is also impossible
+                    while(nums[p-1] <= nums[p] + 1) {
+                        --p;
+                    }
+                }
             }
-            last = nums[pos + i];
+            --p;
         }
-        nums[pos] = -1;
+        
         return false;
     }
 public:
