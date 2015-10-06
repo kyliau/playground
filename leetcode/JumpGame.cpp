@@ -29,7 +29,7 @@ class Solution {
                 } else {
                     // anything before p that is <= nums[p] + distance from p
                     // is also impossible
-                    while(nums[p - 1] <= nums[p] + 1) {
+                    while(p > pos && nums[p - 1] <= nums[p] + 1) {
                         // TODO: need to mark p as -1
                         // and we need to check that p > pos
                         // Although these checks are not done, the program works
