@@ -24,8 +24,9 @@ class Solution {
                 if (canJump(nums, p)) {
                     return true;
                 } else {
-                    // anything before p that is <= nums[p] + distance from p is also impossible
-                    while(nums[p-1] <= nums[p] + 1) {
+                    // anything before p that is <= nums[p] + distance from p
+                    // is also impossible
+                    while(nums[p - 1] <= nums[p] + 1) {
                         --p;
                     }
                 }
