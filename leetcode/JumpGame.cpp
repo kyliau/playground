@@ -7,6 +7,9 @@
 // A = [2,3,1,1,4], return true.
 // A = [3,2,1,0,4], return false.
 
+// TODO: The solution passed all test cases ...
+//       But I believe there are some bugs
+
 class Solution {
     bool canJump(vector<int>& nums, int pos) {
         int n = nums.size();
@@ -27,6 +30,10 @@ class Solution {
                     // anything before p that is <= nums[p] + distance from p
                     // is also impossible
                     while(nums[p - 1] <= nums[p] + 1) {
+                        // TODO: need to mark p as -1
+                        // and we need to check that p > pos
+                        // Although these checks are not done, the program works
+                        // why?!
                         --p;
                     }
                 }
