@@ -25,8 +25,8 @@ class Solution {
 public:
     unsigned calcHash(const string& s) {
         unsigned result = 0;
-        for (int i = 0; i < s.size(); ++i) {
-            result = result * MULT + s[i];
+        for (char c : s) {
+            result = result * MULT + c;
         }
         return result % SIZE;
     }
@@ -36,13 +36,13 @@ public:
         
         istringstream iss(str);
         string s;
-        int count = 0;
-        for (int i = 0; i < pattern.size(); ++i) {
+        
+        for (char p : pattern) {
             if (!(iss >> s)) {
                 return false;
             }
-            ++count;
-            int index = pattern[i] - 'a';
+            
+            int index = p - 'a';
             if (mymap[index].empty()) {
                 mymap[index] = s;
             } else if (mymap[index] != s) {
@@ -53,7 +53,7 @@ public:
             Node *n = myhash[h];
             while (n) {
                 if (n->s == s) {
-                    if (n->c != pattern[i]) {
+                    if (n->c != p) {
                         return false;
                     }
                     break;
@@ -61,7 +61,7 @@ public:
                 n = n->next;
             }
             if (n == nullptr) {
-                n = new Node(pattern[i], s, myhash[h]);
+                n = new Node(p, s, myhash[h]);
                 myhash[h] = n;
             }
             
