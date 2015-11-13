@@ -24,6 +24,7 @@
    * [Lucene: The Good Parts](http://blog.parsely.com/post/1691/lucene/)
    * [A String is not an Error](http://www.devthought.com/2011/12/22/a-string-is-not-an-error/)
    * [Mac OS Memory Management](https://en.wikipedia.org/wiki/Mac_OS_memory_management)
-   * https://en.wikipedia.org/wiki/Inter-process_communication
+   * [IPC](https://en.wikipedia.org/wiki/Inter-process_communication)
+   * [Journaling File System](https://en.wikipedia.org/wiki/Journaling_file_system)
 8. Design Patterns 
    * Visitor Pattern
