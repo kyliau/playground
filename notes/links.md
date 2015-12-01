@@ -6,6 +6,7 @@
    * [Introduction to ES6 Promises](http://jamesknelson.com/grokking-es6-promises-the-four-functions-you-need-to-avoid-callback-hell/)
    * [Promise Patterns](https://www.promisejs.org/patterns/)
    * [JS Promises Swallow Errors](http://jamesknelson.com/are-es6-promises-swallowing-your-errors/)
+   * [Promises 101](http://www.html5rocks.com/en/tutorials/es6/promises/)
 3. Javascript
    * [`this` parameter](https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html)
    * [`new` parameter](http://stackoverflow.com/questions/1646698/what-is-the-new-keyword-in-javascript)
