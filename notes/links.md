@@ -10,6 +10,7 @@
 3. Javascript
    * [`this` parameter](https://www.safaribooksonline.com/library/view/javascript-the-good/9780596517748/ch04s03.html)
    * [`new` parameter](http://stackoverflow.com/questions/1646698/what-is-the-new-keyword-in-javascript)
+   * [`new` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)
    * [ES6 Iterators and Generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
    * [The JavaScript Event Loop: Explained](http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained/)
 4. Python
