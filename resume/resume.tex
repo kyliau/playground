@@ -1,0 +1,137 @@
+% resume.tex
+%
+% (c) 2002 Matthew Boedicker <mboedick@mboedick.org> (original author) http://mboedick.org
+% (c) 2003-2007 David J. Grant <davidgrant-at-gmail.com> http://www.davidgrant.ca
+% (c) 2007-2014 Todd C. Miller <Todd.Miller@courtesan.com> http://www.courtesan.com/todd
+%
+% This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+
+\documentclass[letterpaper,11pt]{article}
+
+%-----------------------------------------------------------
+\usepackage[empty]{fullpage}
+\usepackage{mdframed}
+\usepackage{color}
+\definecolor{mygray}{gray}{0.90}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Adjust margins to 0.5in on all sides
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{1.0in}
+
+%\mdfsetup{innerleftmargin=8pt}
+%\mdfsetup{hidealllines=true}
+
+%-----------------------------------------------------------
+%Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+%\newcommand{\resheading}[1]{{\begin{minipage}{\textwidth}{\colorbox{mygray}{\large \textbf{#1 \vphantom{p\^{E}}}}}\end{minipage}}}
+\newcommand{\resheading}[1]{{\begin{mdframed}[backgroundcolor=mygray]{\large \textbf{#1}}\end{mdframed}}}
+\newcommand{\ressubheading}[4]{
+\begin{tabular*}{7.0in}{l@{\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		\textit{#3} & \textit{#4} \\
+\end{tabular*}\vspace{-6pt}}
+\newcommand{\restitle}[2]{
+\begin{tabular*}{7.0in}{l@{\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+\end{tabular*}}
+\newcommand{\ressubtitle}[2]{
+\begin{tabular*}{7.0in}{l@{\extracolsep{\fill}}r}
+		\textit{#1} & \textit{#2} \\
+\end{tabular*}\vspace{-6pt}}
+%-----------------------------------------------------------
+
+
+\begin{document}
+
+\begin{tabular*}{7.5in}{l@{\extracolsep{\fill}}r}
+\textbf{\large Keen Yee Liau}  & (734) 747-0922 \\
+546 Main St. Apt 827 &  kyliau@umich.edu                                \\
+New York, NY 10044 & http://kyliau.github.io \\
+\end{tabular*}
+\\
+
+\vspace{0.1in}
+%\hrule
+%\vspace{0.05in}
+
+\resheading{Education}
+\begin{itemize}
+\item
+	\restitle{University of Michigan}{Ann Arbor, MI}
+	\ressubtitle{Master of Science, Aerospace Engineering}{Sep. 2012 - May 2014}
+	\begin{itemize}
+		\resitem{Specialize in computational methods and flight software.}
+	\end{itemize}
+	\ressubtitle{Bachelor of Science, Aerospace Engineering}{Jan. 2008 - May 2011}
+	\begin{itemize}
+		\resitem{\textit{Summa Cum Laude}}
+		\resitem{Minor in signal processing and control systems}
+		\resitem{Five terms \textit{University Honor}, Five terms \textit{College of Engineering Dean's List}}
+	\end{itemize}
+\item
+	\restitle{Stanford University}{Stanford, CA}
+	\ressubtitle{Certificate of Completion in Computer Science}{June 2013 - Aug. 2013}
+	\begin{itemize}
+		\resitem{Design and Analysis of Algorithms, Client-side Internet Technologies}
+	\end{itemize}
+\end{itemize}
+
+
+\resheading{Work Experience}
+\begin{itemize}
+
+\item
+	\restitle{Bloomberg LP}{New York, NY}
+	\ressubtitle{Infrastructure Software Engineer}{Dec. 2014 - Present}
+	\begin{itemize}
+		\resitem{Work on the new version release system for next generation Bloomberg Terminal.}
+		\resitem{Build backend infrastructure and front-end UI to facilitate the entire process of publishing, releasing, and distributing code.}
+		\resitem{Work on resource access validation project, a permissioning system that allows developers to restrict and control usage of their API.}
+	\end{itemize}
+
+\item
+	\restitle{FlightAware}{Houston, TX}
+	\ressubtitle{Intern}{June 2014 - Oct. 2014}
+	\begin{itemize}
+		\resitem{Developed test suite for FlightAware APIs using Python \emph{unittest} framework.}
+	\end{itemize}
+
+\item
+	\restitle{Stress Analysis and Design (STRAND) Aerospace}{Kuala Lumpur, Malaysia}
+	\ressubtitle{Structural Engineer}{Sep. 2011 - July 2012}
+	\begin{itemize}
+		\resitem{Airbus A350XWB Flight Test Program: Co-authored six stress dossiers for static analysis of Flight Test Instruments (FTI) using both classical methods and finite element modeling.}
+		\resitem{Developed a Fortran program to analyze fatigue and critical crack length on aircraft wings.}
+	\end{itemize}
+
+\end{itemize}
+
+%\pagebreak
+\resheading{Personal Projects}
+
+\begin{description}
+\item[Expense Tracker]
+a website to keep track of group travel costs. Developed using Python and webapp2 framework, hosted on Google App Engine.
+\end{description}
+
+\resheading{Skills}
+
+\begin{description}
+\item[Programming:]
+C/C{}\verb!++!, Javascript, SQL
+%\item[Tools:]
+%Vim, Git
+\item[Operating Systems:]
+Windows, Mac OS X, Linux
+\item[Languages:]
+English, Chinese (Mandarin), and Malay
+\end{description}
+
+\end{document}
