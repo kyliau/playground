@@ -12,6 +12,7 @@
 \usepackage[empty]{fullpage}
 \usepackage{mdframed}
 \usepackage{color}
+\usepackage{hyperref}
 \definecolor{mygray}{gray}{0.90}
 \raggedbottom
 \raggedright
@@ -53,7 +54,7 @@
 \begin{tabular*}{7.5in}{l@{\extracolsep{\fill}}r}
 \textbf{\large Keen Yee Liau}  & (734) 747-0922 \\
 546 Main St. Apt 827 &  kyliau@umich.edu                                \\
-New York, NY 10044 & http://kyliau.github.io \\
+New York, NY 10044 & \href{http://kyliau.github.io/}{http://kyliau.github.io} \\
 \end{tabular*}
 \\
 
@@ -67,7 +68,7 @@ New York, NY 10044 & http://kyliau.github.io \\
 	\restitle{University of Michigan}{Ann Arbor, MI}
 	\ressubtitle{Master of Science, Aerospace Engineering}{Sep. 2012 - May 2014}
 	\begin{itemize}
-		\resitem{Specialize in computational methods and flight software.}
+		\resitem{Focused on computational methods and flight software.}
 	\end{itemize}
 	\ressubtitle{Bachelor of Science, Aerospace Engineering}{Jan. 2008 - May 2011}
 	\begin{itemize}
@@ -92,8 +93,8 @@ New York, NY 10044 & http://kyliau.github.io \\
 	\ressubtitle{Infrastructure Software Engineer}{Dec. 2014 - Present}
 	\begin{itemize}
 		\resitem{Work on the new version release system for next generation Bloomberg Terminal.}
-		\resitem{Build backend infrastructure and front-end UI to facilitate the entire process of publishing, releasing, and distributing code.}
-		\resitem{Work on resource access validation project, a permissioning system that allows developers to restrict and control usage of their API.}
+		\resitem{Build back-end infrastructure and front-end UI to facilitate the entire process of publishing, releasing, and distributing code.}
+		\resitem{Responsible for the resource access validation project, a permissioning system that allows developers to restrict and monitor usage of their API.}
 	\end{itemize}
 
 \item
@@ -104,28 +105,39 @@ New York, NY 10044 & http://kyliau.github.io \\
 	\end{itemize}
 
 \item
-	\restitle{Stress Analysis and Design (STRAND) Aerospace}{Kuala Lumpur, Malaysia}
+	\restitle{Stress Analysis and Design Aerospace}{Kuala Lumpur, Malaysia}
 	\ressubtitle{Structural Engineer}{Sep. 2011 - July 2012}
 	\begin{itemize}
-		\resitem{Airbus A350XWB Flight Test Program: Co-authored six stress dossiers for static analysis of Flight Test Instruments (FTI) using both classical methods and finite element modeling.}
-		\resitem{Developed a Fortran program to analyze fatigue and critical crack length on aircraft wings.}
+		\resitem{Airbus A350XWB Flight Test Program: Co-authored six stress dossiers for static analysis of Flight Test Instruments (FTI) using classical methods and finite element modeling.}
+		\resitem{Developed a Fortran program to analyze fatigue and cyclic loads on aircraft wings.}
 	\end{itemize}
 
 \end{itemize}
 
 %\pagebreak
-\resheading{Personal Projects}
+\resheading{Personal Project}
 
-\begin{description}
-\item[Expense Tracker]
-a website to keep track of group travel costs. Developed using Python and webapp2 framework, hosted on Google App Engine.
-\end{description}
+\begin{itemize}
+\item
+	%\restitle{Expense Tracker}{\url{http://expense--tracker.appspot.com/}}
+	\restitle{Expense Tracker}{\href{http://expense--tracker.appspot.com/}{http://expense-{}-tracker.appspot.com}}
+	\vspace{-6pt}
+	\begin{itemize}
+		\resitem{A simple and responsive website that calculates and keeps track of group travel costs.}
+		\resitem{Developed using Python and webapp2 framework, hosted on Google App Engine.}
+	\end{itemize}
+\end{itemize}
+
+%\begin{description}
+%\item[Expense Tracker]
+%a website to keep track of group travel costs. Developed using Python and webapp2 framework, hosted on Google App Engine.
+%\end{description}
 
 \resheading{Skills}
 
 \begin{description}
 \item[Programming:]
-C/C{}\verb!++!, Javascript, SQL
+C/C{}\verb!++!, Javascript
 %\item[Tools:]
 %Vim, Git
 \item[Operating Systems:]
