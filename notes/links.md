@@ -32,3 +32,5 @@
    * Visitor Pattern
 9. Unix Tools
    * [Introduction to Tmux](http://perltricks.com/article/an-introduction-to-tmux/)
+10. Git
+    * [19 Tips For Everyday Git Use](http://www.alexkras.com/19-git-tips-for-everyday-use/)
