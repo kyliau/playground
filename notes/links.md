@@ -22,6 +22,7 @@
 6. Chromium
    * [Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture)
    * [Inter-process Communication](https://www.chromium.org/developers/design-documents/inter-process-communication)
+   * [V8 Engine](https://developers.google.com/v8/)
 7. Miscellanea
    * [Lucene: The Good Parts](http://blog.parsely.com/post/1691/lucene/)
    * [A String is not an Error](http://www.devthought.com/2011/12/22/a-string-is-not-an-error/)
