@@ -13,6 +13,7 @@
    * [`new` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)
    * [ES6 Iterators and Generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators)
    * [The JavaScript Event Loop: Explained](http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained/)
+   * [Differential Inheritance](https://developer.mozilla.org/en/docs/Differential_inheritance_in_JavaScript)
 4. Python
    * [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)  
    * [Intermediate Python](http://book.pythontips.com/en/latest/)
