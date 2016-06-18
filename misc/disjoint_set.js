@@ -25,6 +25,10 @@ function DisjointSet() {
     this.map = new Map();
 }
 
+DisjointSet.prototype.members = function() {
+    return this.map.keys();
+};
+
 DisjointSet.prototype.findRoot = function(x) {
     let map = this.map;
     if (!map.has(x)) {
@@ -70,13 +74,13 @@ function run() {
         ds.merge(x, y);
     });
     let groups = new Map();
-    for (let node of ds.map.keys()) {
-        let root = ds.findRoot(node);
+    for (let member of ds.members()) {
+        let root = ds.findRoot(member);
         let group = groups.get(root);
         if (group) {
-            group.add(node);
+            group.add(member);
         } else {
-            groups.set(root, new Set([node]));
+            groups.set(root, new Set([member]));
         }
     }
     console.log(groups);
