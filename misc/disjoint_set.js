@@ -65,14 +65,12 @@ DisjointSet.prototype.merge = function(x, y) {
 
 // Step 3: Feed the input to the disjoint set
 function run() {
-    let nodes = new Set();
     let ds = new DisjointSet();
     input.forEach(([x, y]) => {
-        nodes.add(x).add(y);
         ds.merge(x, y);
     });
     let groups = new Map();
-    for (let node of nodes.values()) {
+    for (let node of ds.map.keys()) {
         let root = ds.findRoot(node);
         let group = groups.get(root);
         if (group) {
