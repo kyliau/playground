@@ -1,11 +1,11 @@
-#include <vector>
-#include <iostream>
 #include <algorithm>
-#include <iterator>
-#include <string>
-#include <fstream>
-#include <sstream>
 #include <cassert>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <sstream>
+#include <string>
+#include <vector>
 using namespace std;
 
 // There are two sorted arrays nums1 and nums2 of size m and n respectively.
@@ -76,6 +76,9 @@ private:
     int findMedianRight(const vector<int>& v,
                         const vector<int>& other,
                         int                index) {
+        // Find the element to the right of the median if the size of 'v' and
+        // 'other' is even, otherwise return v[index].
+
         int m = v.size();
         int n = other.size();
         if ((m + n) % 2 == 1) {
