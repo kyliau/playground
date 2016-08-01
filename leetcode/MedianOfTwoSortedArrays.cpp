@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
             v1.emplace_back(x);
         }
         std::getline(inFile, s);
-        iss.ignore(256, '\n');
+        //iss.ignore(256, '\n');
         iss.clear();
         iss.str(s);
         while (iss >> x) {
