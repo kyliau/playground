@@ -6,7 +6,6 @@
 // getRandom  : Returns a random element from current set of elements.
 //              Each element must have the same probability of being returned.
 
-#include <iostream>
 #include <unordered_map>
 #include <algorithm>
 #include <random>
@@ -53,7 +52,7 @@ public:
         }
         int index = it->second;
         d_map[d_vector.back()] = index;
-        std::swap(d_vector.back(), d_vector[index]);
+        d_vector[index] = d_vector.back();
         d_vector.pop_back();
         d_map.erase(it);
         return true;
