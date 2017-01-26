@@ -24,6 +24,7 @@
 #include <assert.h>
 
 using namespace std;
+using Graph = unordered_map<string, vector<const string*>>;
 
 bool isEditDistanceOne(const string& s1, const string& s2) {
     int distance = 0;
@@ -39,52 +40,71 @@ bool isEditDistanceOne(const string& s1, const string& s2) {
     return distance == 1;
 }
 
+void print(const Graph& g) {
+    for (const auto& p : g) {
+        cout << p.first << ": [ ";
+        for (const string *s : p.second) {
+            cout << *s << " ";
+        }
+        cout << "]" << endl;;
+    }
+}
+
 class Solution {
 public:
-    int ladderLength(const string&                beginWord,
-                     const string&                endWord,
-                     const unordered_set<string>& wordList) {
-        unordered_set<string> words(wordList);
-        words.insert(beginWord);
-        words.insert(endWord);
-        // 1. Build the graph
-        unordered_map<string, vector<const string *>> g;
-        g.reserve(words.size());
+    int ladderLength(const string&   beginWord,
+                     const string&   endWord,
+                     vector<string>& words) {
 
-        for (const string& s1 : words) {
-            for (const string& s2 : words) {
+        words.emplace_back(beginWord);
+        words.emplace_back(endWord);
+        // 1. Build the graph
+        Graph g;
+        g.reserve(words.size() + 2);
+        for (int i = 0; i < words.size(); ++i) {
+            for (int j = i + 1; j < words.size(); ++j) {
+                const string& s1 = words[i];
+                const string& s2 = words[j];
                 if (isEditDistanceOne(s1, s2)) {
                     g[s1].emplace_back(&s2);
+                    g[s2].emplace_back(&s1);
                 }
             }
         }
 
-        for (const auto& p : g) {
-            cout << p.first << ": [";
-            for (const string *s : p.second) {
-                cout << *s << " ";
+        print(g);
+
+        struct Node {
+            const string* word;
+            int           distance;
+            Node(const string& word, int distance) {
+                this->word     = &word;
+                this->distance = distance;
             }
-            cout << "]" << endl;;
-        }
+        };
 
         // 2. Do the graph search using BFS
-        int distance = 0;
+        //int distance = 0;
         unordered_set<string> visited;
-        queue<const string *> q;
-        q.emplace(&beginWord);
+        queue<Node> q;
+        q.emplace(beginWord, 1);
         while (!q.empty()) {
-            const string& top = *(q.front());
+            Node node = q.front();
             q.pop();
-            if (top == endWord) {
-                return distance;
-            }
-            visited.insert(top);
-            auto it = g.find(top);
+            const string& word = *(node.word);
+            //cout << "Checking " << word << ", distance = " << node.distance << endl;
+            visited.insert(word);
+            auto it = g.find(word);
             if (it != g.end()) {
-                ++distance;
+                // A node will not exist in the graph if it does not have any
+                // neighbour
                 for (const string *s : it->second) {
+                    //cout << "\tChecking neighbour " << *s << ", " << (visited.end() == visited.find(*s) ? "not seen before" : "seen") << endl;
+                    if (*s == endWord) {
+                        return node.distance + 1;                          // RETURN
+                    }
                     if (visited.end() == visited.find(*s)) {
-                        q.push(s);
+                        q.emplace(*s, node.distance + 1);
                     }
                 }
             }
@@ -94,27 +114,35 @@ public:
 };
 
 int main() {
-    {
+    struct {
+        int            i;
+        string         beginWord;
+        string         endWord;
+        vector<string> words;
+        int            distance;
+    } CASES[] = {
+        // #   begin   end           words                           distance
+        // --  -----  -----  ---------------------                   --------
+        {  1,  "hot", "got", {"hot", "got"},                            2    },
+        {  2,  "hot", "pit", {"hot", "pot", "pit"},                     3    },
+        {  3,    "c",   "b", {"a", "b", "c"},                           2    },
+        {  4,  "hit", "cog", {"hot", "dot", "dog", "lot", "log"},       5    },
+        {  5,   "aa",  "ee", {"ab", "ac", "ad"},                        0    },
+        {  6,    "a",   "a", {},                                        0    },
+    };
+    int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
+    for (int i = 0; i < NUM_CASES; ++i) {
+        int num           = CASES[i].i;
+        auto& begin = CASES[i].beginWord;
+        auto& end   = CASES[i].endWord;
+        auto& words = CASES[i].words;
+        int expected      = CASES[i].distance;
+        cout << "Running test case " << num << endl;
         Solution s;
-        assert(1 == s.ladderLength("hot", "got", {"hot", "got"}));
+        int distance = s.ladderLength(begin, end, words);
+        cout << "Shortest distance = " << distance << endl << endl;
+        assert(distance == expected);
     }
-    {
-        Solution s;
-        assert(2 == s.ladderLength("hot", "pit", {"hot", "pot", "pit"}));
-    }
-    {
-        Solution s;
-        int l = s.ladderLength("c", "b", {"a", "b", "c"});
-        cout << l << endl;
-        assert(1 == l);
-    }
-    {
-        Solution s;
-        int l = s.ladderLength("hit",
-                               "cog",
-                               {"hot","dot","dog","lot","log"});
-        cout << l << endl;
-        assert(5 == l);
-    }
+    cout << "All test cases passed!" << endl;
     return 0;
 }
