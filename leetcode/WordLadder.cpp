@@ -84,7 +84,6 @@ public:
         };
 
         // 2. Do the graph search using BFS
-        //int distance = 0;
         unordered_set<string> visited;
         queue<Node> q;
         q.emplace(beginWord, 1);
@@ -123,12 +122,13 @@ int main() {
     } CASES[] = {
         // #   begin   end           words                           distance
         // --  -----  -----  ---------------------                   --------
-        {  1,  "hot", "got", {"hot", "got"},                            2    },
-        {  2,  "hot", "pit", {"hot", "pot", "pit"},                     3    },
-        {  3,    "c",   "b", {"a", "b", "c"},                           2    },
-        {  4,  "hit", "cog", {"hot", "dot", "dog", "lot", "log"},       5    },
-        {  5,   "aa",  "ee", {"ab", "ac", "ad"},                        0    },
-        {  6,    "a",   "a", {},                                        0    },
+        {  1,  "hot", "got", {"hot", "got"},                              2 },
+        {  2,  "hot", "pit", {"hot", "pot", "pit"},                       3 },
+        {  3,    "c",   "b", {"a", "b", "c"},                             2 },
+        {  4,  "hit", "cog", {"hot", "dot", "dog", "lot", "log" ,"cog" }, 5 },
+        {  5,   "aa",  "ee", {"ab", "ac", "ad"},                          0 },
+        {  6,    "a",   "a", {},                                          0 },
+        {  7,  "hit", "cog", {"hot", "dot", "dog", "lot", "log", "cog" }, 0 },
     };
     int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
@@ -140,7 +140,8 @@ int main() {
         cout << "Running test case " << num << endl;
         Solution s;
         int distance = s.ladderLength(begin, end, words);
-        cout << "Shortest distance = " << distance << endl << endl;
+        cout << "Shortest distance from '" << begin << "' to '" << end << "' = "
+             << distance << endl << endl;
         assert(distance == expected);
     }
     cout << "All test cases passed!" << endl;
