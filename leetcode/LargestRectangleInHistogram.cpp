@@ -16,20 +16,11 @@ using namespace std;
 int oracle(const vector<int>& heights) {
     int area = 0;
     for (int i = 0; i < heights.size(); ++i) {
-        int width  = 1;
         int height = heights[i];
-        for (int j = i + 1; j < heights.size() && heights[j] >= height; ++j) {
-            ++width;
+        for (int j = i; j < heights.size(); ++j) {
+            height = std::min(height, heights[j]);
+            area = std::max(area, height * (j - i + 1));
         }
-        area = std::max(area, width * height);
-    }
-    for (int i = heights.size() - 1; i >= 0; --i) {
-        int width = 1;
-        int height = heights[i];
-        for (int j = i - 1; j >= 0 && heights[j] >= height; --j) {
-            ++width;
-        }
-        area = std::max(area, width * height);
     }
     return area;
 }
@@ -40,79 +31,41 @@ public:
         int width  = 0;
         int height = 0;
         int area   = 0;
-        std::stack<int> lastWidth;
+        std::stack<int> s;
         for (int i = 0; i < heights.size(); ++i) {
             int h = heights[i];
             if (h == height) {
                 ++width;
-                //lastWidth.push(i);
             }
             else if (h > height) {
-                cout << "h = " << h << ", height * (width + 1) = " << height * (width + 1) << endl;
-                if (h > height * (width + 1)) {
-                    height = h;
+                if (h >= height * (width + 1)) {
                     width  = 1;
+                    height = h;
                 } else {
                     ++width;
                 }
-                lastWidth.push(i);
+                s.push(i);
             }
-            else {  // h < height
-                int someNewWidth = 0;
-                while (!lastWidth.empty() && heights[lastWidth.top()] >= h) {
-                    someNewWidth = i - lastWidth.top();
-                    lastWidth.pop();
+            else {
+                int w = 0;
+                while (!s.empty() && heights[s.top()] > h) {
+                    //w = i - s.top() + 1;
+                    s.pop();
                 }
-                if (width * height > someNewWidth * h) {
-                    area = width * height;
-                    width  = 0;
-                    height = 0;
+                if (!s.empty()) {
+                    w = i - s.top() + 1;
                 }
-                else {
-                    width  = someNewWidth;
+                if (h * w >= height * width) {
                     height = h;
-                }
-            }
-        }
-        area = std::max(area, width * height);
-        width  = 0;
-        height = 0;
-        while(!lastWidth.empty()) {
-            lastWidth.pop();
-        }
-        for (int i = heights.size() - 1; i >= 0; --i) {
-            int h = heights[i];
-            if (h == height) {
-                ++width;
-                //lastWidth.push(i);
-            }
-            else if (h > height) {
-                if (h > height * (width + 1)) {
-                    height = h;
-                    width  = 1;
+                    width  = w;
                 } else {
-                    ++width;
-                }
-                lastWidth.push(i);
-            }
-            else {  // h < height
-                int someNewWidth = 0;
-                while (!lastWidth.empty() && heights[lastWidth.top()] >= h) {
-                    someNewWidth = lastWidth.top() - i;
-                    lastWidth.pop();
-                }
-                if (width * height > someNewWidth * h) {
-                    area = std::max(area, width * height);
-                    width  = 0;
+                    area = std::max(area, height * width);
                     height = 0;
-                }
-                else {
-                    width  = someNewWidth;
-                    height = h;
+                    width  = 0;
                 }
             }
         }
-        return std::max(area, width * height);
+        return std::max(area, height * width);
     }
 };
 
@@ -135,12 +88,16 @@ int main() {
         { 11, {  1,  1,  4             },  4 },
         { 12, {  2,  4,  4             },  8 },
         { 13, {  1,  2,  1             },  3 },
+        { 14, {  1,  2,  3             },  4 },
+        { 15, {  1,  0,  1             },  1 },
+        { 16, {  1,  4,  3             },  6 },
+        { 17, {  1,  4,  3, 1, 1, 1, 1 },  7 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
-        int n               = CASES[i].i;
+        const int n         = CASES[i].i;
         const auto& heights = CASES[i].heights;
-        int expected        = CASES[i].area;
+        const int expected  = CASES[i].area;
         assert(expected == oracle(heights));
         Solution s;
         int area = s.largestRectangleArea(heights);
