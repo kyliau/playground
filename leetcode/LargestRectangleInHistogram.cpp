@@ -32,23 +32,26 @@ public:
         std::stack<int> s;
         for (int i = 0; i < heights.size(); ++i) {
             int h = heights[i];
-            if (!s.empty()) {
-                int index  = s.top();
-                int height = heights[index];
-                if (h < height) {
-                    s.pop();
-                    int width = s.empty() ? i : i - s.top() - 1;
-                    area = std::max(area, height * width);
-                }
+            while (!s.empty() && h < heights[s.top()]) {
+                int height = heights[s.top()];
+                s.pop();
+                int width = s.empty() ? i : i - s.top() - 1;
+                area = std::max(area, height * width);
             }
             s.push(i);
         }
         while (!s.empty()) {
-            int index  = s.top();
-            int height = heights[index];
+            int index = s.top();
+            int h     = heights[index];
             s.pop();
-            int width   = s.empty() ? index + 1 : heights.size() - s.top() - 1;
-            area = std::max(area, height * width);
+            while (!s.empty() && h >= heights[s.top()]) {
+                int height = heights[s.top()];
+                s.pop();
+                int width  = s.empty() ? index + 1 : index - s.top();
+                area = std::max(area, height * width);
+            }
+            int width = s.empty() ? 1 : index - s.top();
+            area = std::max(area, h * width);
         }
         return area;
     }
@@ -78,6 +81,9 @@ int main() {
         { 16, {  1,  4,  3             },  6 },
         { 17, {  1,  4,  3, 1, 1, 1, 1 },  7 },
         { 18, {  5                     },  5 },
+        { 19, {  1,  1,  2, 1          },  4 },
+        { 20, {  1,  1                 },  2 },
+        { 21, {  1,  1,  1             },  3 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
