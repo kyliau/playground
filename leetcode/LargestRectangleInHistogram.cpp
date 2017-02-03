@@ -28,44 +28,29 @@ int oracle(const vector<int>& heights) {
 class Solution {
 public:
     int largestRectangleArea(const vector<int>& heights) {
-        int width  = 0;
-        int height = 0;
-        int area   = 0;
+        int area = 0;
         std::stack<int> s;
         for (int i = 0; i < heights.size(); ++i) {
             int h = heights[i];
-            if (h == height) {
-                ++width;
-            }
-            else if (h > height) {
-                if (h >= height * (width + 1)) {
-                    width  = 1;
-                    height = h;
-                } else {
-                    ++width;
-                }
-                s.push(i);
-            }
-            else {
-                int w = 0;
-                while (!s.empty() && heights[s.top()] > h) {
-                    //w = i - s.top() + 1;
+            if (!s.empty()) {
+                int index  = s.top();
+                int height = heights[index];
+                if (h < height) {
                     s.pop();
-                }
-                if (!s.empty()) {
-                    w = i - s.top() + 1;
-                }
-                if (h * w >= height * width) {
-                    height = h;
-                    width  = w;
-                } else {
+                    int width = s.empty() ? i : i - s.top() - 1;
                     area = std::max(area, height * width);
-                    height = 0;
-                    width  = 0;
                 }
             }
+            s.push(i);
         }
-        return std::max(area, height * width);
+        while (!s.empty()) {
+            int index  = s.top();
+            int height = heights[index];
+            s.pop();
+            int width   = s.empty() ? index + 1 : heights.size() - s.top() - 1;
+            area = std::max(area, height * width);
+        }
+        return area;
     }
 };
 
@@ -92,6 +77,7 @@ int main() {
         { 15, {  1,  0,  1             },  1 },
         { 16, {  1,  4,  3             },  6 },
         { 17, {  1,  4,  3, 1, 1, 1, 1 },  7 },
+        { 18, {  5                     },  5 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
