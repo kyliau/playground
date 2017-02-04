@@ -31,27 +31,23 @@ public:
         int area = 0;
         std::stack<int> s;
         for (int i = 0; i < heights.size(); ++i) {
-            int h = heights[i];
-            while (!s.empty() && h < heights[s.top()]) {
-                int height = heights[s.top()];
+            while (!s.empty() && heights[i] < heights[s.top()]) {
+                int h = heights[s.top()];
                 s.pop();
-                int width = s.empty() ? i : i - s.top() - 1;
-                area = std::max(area, height * width);
+                int w = s.empty() ? i : i - s.top() - 1;
+                area = std::max(area, h * w);
             }
             s.push(i);
         }
-        while (!s.empty()) {
+        if (!s.empty()) {
             int index = s.top();
-            int h     = heights[index];
-            s.pop();
-            while (!s.empty() && h >= heights[s.top()]) {
-                int height = heights[s.top()];
+            while (!s.empty()) {
+                int h = heights[s.top()];
+                assert(heights[index] >= h);
                 s.pop();
-                int width  = s.empty() ? index + 1 : index - s.top();
-                area = std::max(area, height * width);
+                int w = s.empty() ? index + 1 : index - s.top();
+                area = std::max(area, h * w);
             }
-            int width = s.empty() ? 1 : index - s.top();
-            area = std::max(area, h * width);
         }
         return area;
     }
@@ -84,6 +80,16 @@ int main() {
         { 19, {  1,  1,  2, 1          },  4 },
         { 20, {  1,  1                 },  2 },
         { 21, {  1,  1,  1             },  3 },
+        { 22, {  3                     },  3 },
+        { 23, {  2, 3                  },  4 },
+        { 24, {  3, 2                  },  4 },
+        { 25, {  2, 2                  },  4 },
+        { 26, {  3, 3, 3               },  9 },
+        { 27, {  3, 5, 3               },  9 },
+        { 28, {  3, 2, 3               },  6 },
+        { 29, {  3, 4, 1, 1, 1, 1, 1   },  7 },
+        { 30, {  3, 4, 1               },  6 },
+        //{ 22, { 5, 6, 2, 5, 8, 6, 7, 8, 9}, 0 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
@@ -91,6 +97,7 @@ int main() {
         const auto& heights = CASES[i].heights;
         const int expected  = CASES[i].area;
         assert(expected == oracle(heights));
+        //const int expected = oracle(heights);
         Solution s;
         int area = s.largestRectangleArea(heights);
         cout << "Test case " << n << "\t... ";
