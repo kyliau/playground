@@ -89,7 +89,6 @@ int main() {
         { 28, {  3, 2, 3               },  6 },
         { 29, {  3, 4, 1, 1, 1, 1, 1   },  7 },
         { 30, {  3, 4, 1               },  6 },
-        //{ 22, { 5, 6, 2, 5, 8, 6, 7, 8, 9}, 0 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
@@ -97,7 +96,6 @@ int main() {
         const auto& heights = CASES[i].heights;
         const int expected  = CASES[i].area;
         assert(expected == oracle(heights));
-        //const int expected = oracle(heights);
         Solution s;
         int area = s.largestRectangleArea(heights);
         cout << "Test case " << n << "\t... ";
