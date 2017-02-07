@@ -6,8 +6,8 @@
 // For example,
 // Given:
 // beginWord = "hit"
-// endWord = "cog"
-// wordList = ["hot","dot","dog","lot","log"]
+// endWord   = "cog"
+// wordList  = ["hot","dot","dog","lot","log"]
 // As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
 // return its length 5.
 // Note:
@@ -57,7 +57,7 @@ public:
                      vector<string>& words) {
 
         words.emplace_back(beginWord);
-        words.emplace_back(endWord);
+        //words.emplace_back(endWord);
         // 1. Build the graph
         Graph g;
         g.reserve(words.size() + 2);
@@ -128,15 +128,15 @@ int main() {
         {  4,  "hit", "cog", {"hot", "dot", "dog", "lot", "log" ,"cog" }, 5 },
         {  5,   "aa",  "ee", {"ab", "ac", "ad"},                          0 },
         {  6,    "a",   "a", {},                                          0 },
-        {  7,  "hit", "cog", {"hot", "dot", "dog", "lot", "log", "cog" }, 0 },
+        {  7,  "hit", "cog", {"hot", "dot", "dog", "lot", "log"        }, 0 },
     };
     int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
-        int num           = CASES[i].i;
-        auto& begin = CASES[i].beginWord;
-        auto& end   = CASES[i].endWord;
-        auto& words = CASES[i].words;
-        int expected      = CASES[i].distance;
+        int   num      = CASES[i].i;
+        auto& begin    = CASES[i].beginWord;
+        auto& end      = CASES[i].endWord;
+        auto& words    = CASES[i].words;
+        int   expected = CASES[i].distance;
         cout << "Running test case " << num << endl;
         Solution s;
         int distance = s.ladderLength(begin, end, words);
