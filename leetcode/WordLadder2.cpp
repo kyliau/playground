@@ -28,7 +28,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
-#include <stack>
+#include <queue>
 
 using namespace std;
 using Graph = unordered_map<string, vector<const string *>>;
@@ -67,7 +67,7 @@ private:
     Graph d_graph;
     Graph d_path;
 
-    bool isEditDistanceOne(const string& s1, const string& s2) {
+    bool isEditDistanceOne(const string& s1, const string& s2) const {
         int distance = 0;
         int length   = s1.length();
         for (int i = 0; i < length; ++i) {
@@ -82,10 +82,15 @@ private:
     }
 
     void buildGraph(const string& beginWord, const vector<string>& wordList) {
-        for (const string& w : wordList) {
-            if (isEditDistanceOne(w, beginWord)) {
-                d_graph[w].emplace_back(&beginWord);
-                d_graph[beginWord].emplace_back(&w);
+        d_graph.reserve(wordList.size() + 1);
+        if (wordList.end() == std::find(wordList.begin(),
+                                        wordList.end(),
+                                        beginWord)) {
+            for (const string& w : wordList) {
+                if (isEditDistanceOne(w, beginWord)) {
+                    d_graph[w].emplace_back(&beginWord);
+                    d_graph[beginWord].emplace_back(&w);
+                }
             }
         }
         for (int i = 0; i < wordList.size(); ++i) {
@@ -101,20 +106,24 @@ private:
     }
 
     void findShortestDistance(const string& beginWord, const string& endWord) {
-        std::stack<const string *> s;
+        std::queue<const string *> q;
         std::unordered_set<string> visited;
-        s.push(&beginWord);
-        while (!s.empty()) {
-            const string& w = *(s.top());
-            s.pop();
+        q.push(&beginWord);
+        while (!q.empty()) {
+            const string& w = *(q.front());
+            if (w == endWord) {
+                return;                                                // RETURN
+            }
+            q.pop();
             visited.insert(w);
             const auto it = d_graph.find(w);
             assert(it != d_graph.end());
             const auto& neighbours = it->second;
             for (const string *n : neighbours) {
-                if (visited.end() == visited.find(*n)) {
+                const auto it = visited.find(*n);
+                if (visited.end() == it) {
                     d_path[*n].emplace_back(&w);
-                    s.push(n);
+                    q.push(n);
                 }
             }
         }
@@ -124,22 +133,22 @@ private:
                    vector<string>         *v,
                    const string&           word,
                    const string&           beginWord) {
-        auto it = d_path.find(word);
-        if (d_path.end() == it) {
-            v->emplace_back(beginWord);
-            std::reverse(v->begin(), v->end());
-            return;                                                    // RETURN
-        }
-        v->emplace_back(word);
-        for (int i = 0; i < it->second.size(); ++i) {
-            const string& w = *(it->second[i]);
-            if (i == 0) {
-                backtrack(r, v, w, beginWord);
-            } else {
-                r->emplace_back(*v);
-                backtrack(r, &r->back(), w, beginWord);
-            }
-        }
+        //auto it = d_path.find(word);
+        //if (d_path.end() == it) {
+        //    v->emplace_back(beginWord);
+        //    std::reverse(v->begin(), v->end());
+        //    return;                                                    // RETURN
+        //}
+        //v->emplace_back(word);
+        //for (int i = 0; i < it->second.size(); ++i) {
+        //    const string& w = *(it->second[i]);
+        //    if (i == 0) {
+        //        backtrack(r, v, w, beginWord);
+        //    } else {
+        //        r->emplace_back(*v);
+        //        backtrack(r, &r->back(), w, beginWord);
+        //    }
+        //}
     }
 
 public:
@@ -153,9 +162,9 @@ public:
             return result;                                             // RETURN
         }
         buildGraph(beginWord, wordList);
-        //cout << d_graph;
+        cout << "Graph" << endl << d_graph;
         findShortestDistance(beginWord, endWord);
-        //cout << d_path;
+        cout << "Path" << endl << d_path;
         auto it = d_path.find(endWord);
         if (it != d_path.end()) {
             result.emplace_back();
@@ -175,6 +184,16 @@ int main() {
     } TEST_CASES[] = {
         {
             1,
+            "aa",
+            "bb",
+            {"aa", "ab", "ba", "bb"},
+            {
+                {"aa", "ab", "bb"},
+                {"aa", "ba", "bb"}
+            }
+        },
+        {
+            2,
             "hit",
             "cog",
             {"hot", "dot", "dog", "lot", "log", "cog"},
@@ -184,7 +203,7 @@ int main() {
             }
         },
         {
-            2,
+            3,
             "hot",
             "got",
             {"got"},
