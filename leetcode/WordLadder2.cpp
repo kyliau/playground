@@ -120,8 +120,7 @@ private:
             assert(it != d_graph.end());
             const auto& neighbours = it->second;
             for (const string *n : neighbours) {
-                const auto it = visited.find(*n);
-                if (visited.end() == it) {
+                if (visited.end() == visited.find(*n)) {
                     d_path[*n].emplace_back(&w);
                     q.push(n);
                 }
