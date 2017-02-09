@@ -115,14 +115,15 @@ private:
                 return;                                                // RETURN
             }
             q.pop();
-            visited.insert(w);
-            const auto it = d_graph.find(w);
-            assert(it != d_graph.end());
-            const auto& neighbours = it->second;
-            for (const string *n : neighbours) {
-                if (visited.end() == visited.find(*n)) {
-                    d_path[*n].emplace_back(&w);
-                    q.push(n);
+            if (visited.insert(w).second) {
+                const auto it = d_graph.find(w);
+                assert(it != d_graph.end());
+                const auto& neighbours = it->second;
+                for (const string *n : neighbours) {
+                    if (visited.end() == visited.find(*n)) {
+                        d_path[*n].emplace_back(&w);
+                        q.push(n);
+                    }
                 }
             }
         }
@@ -132,22 +133,6 @@ private:
                    vector<string>         *v,
                    const string&           word,
                    const string&           beginWord) {
-        //auto it = d_path.find(word);
-        //if (d_path.end() == it) {
-        //    v->emplace_back(beginWord);
-        //    std::reverse(v->begin(), v->end());
-        //    return;                                                    // RETURN
-        //}
-        //v->emplace_back(word);
-        //for (int i = 0; i < it->second.size(); ++i) {
-        //    const string& w = *(it->second[i]);
-        //    if (i == 0) {
-        //        backtrack(r, v, w, beginWord);
-        //    } else {
-        //        r->emplace_back(*v);
-        //        backtrack(r, &r->back(), w, beginWord);
-        //    }
-        //}
     }
 
 public:
