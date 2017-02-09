@@ -105,7 +105,7 @@ private:
         std::unordered_set<string> visited;
         s.push(&beginWord);
         while (!s.empty()) {
-            const string& w = *(s.top());    // fix this! should not make a copy
+            const string& w = *(s.top());
             s.pop();
             visited.insert(w);
             const auto it = d_graph.find(w);
@@ -153,9 +153,9 @@ public:
             return result;                                             // RETURN
         }
         buildGraph(beginWord, wordList);
-        cout << d_graph;
+        //cout << d_graph;
         findShortestDistance(beginWord, endWord);
-        cout << d_path;
+        //cout << d_path;
         auto it = d_path.find(endWord);
         if (it != d_path.end()) {
             result.emplace_back();
