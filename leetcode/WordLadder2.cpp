@@ -132,8 +132,7 @@ private:
             const string& w = *(q.front());
             q.pop();
             --count;
-            if (d_distance.end() == d_distance.find(w)) {
-                d_distance[w] = distance;
+            if (d_distance.insert({w, distance}).second) {
                 if (w == endWord) {
                     return distance;                                   // RETURN
                 }
