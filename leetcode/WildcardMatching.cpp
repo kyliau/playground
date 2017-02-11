@@ -20,9 +20,13 @@ using namespace std;
 class Solution {
 public:
     bool matchStar(const string& s, const string& p, int si, int pi) {
+        //cout << "Match star " << s.substr(si) << " with " << p.substr(pi) << endl;
         int sn = s.length();
         int pn = p.length();
         assert(p[pi] == '*');
+        while (pi < pn - 1 && p[pi + 1] == '*') {
+            ++pi;
+        }
         if (pi == pn - 1) {
             return true;
         }
@@ -36,6 +40,7 @@ public:
     }
 
     bool matchHere(const string& s, const string& p, int si, int pi) {
+        //cout << "Match here " << s.substr(si) << " with " << p.substr(pi) << endl;
         int sn = s.length();
         int pn = p.length();
         while (pi < pn) {
@@ -66,28 +71,35 @@ int main() {
         string p;
         bool   match;
     } TEST_CASES[] = {
-        // #  string   pattern   match
-        {  1,   "aa",      "a",  false },
-        {  2,   "aa",     "aa",   true },
-        {  3,  "aaa",     "aa",  false },
-        {  4,   "aa",    "aaa",  false },
-        {  5,   "aa",      "*",   true },
-        {  6,   "aa",     "a*",   true },
-        {  7,   "ab",     "?*",   true },
-        {  8,  "aab",  "c*a*b",  false },
-        {  9,    "a",      "?",   true },
-        { 10,     "",      "*",   true },
-        { 11,     "",     "*b",  false },
-        { 12,    "b",     "*b",   true },
-        { 13,    "c",     "*b",  false },
-        { 14,  "abc",    "*?*",   true },
-        { 15,    "a",     "*?",   true },
-        { 16,    "a",     "?*",   true },
-        { 17,     "",      "?",  false },
-        { 18,   "ab",    "***",   true },
-        { 19,     "",       "",   true },
-        { 20, "aaab",    "a*b",   true },
-        { 21,  "aaa",    "*b*",  false },
+        // #           string          pattern   match
+        // -- -------------------  ------------  -----
+        {  1,                "aa",          "a", false },
+        {  2,                "aa",         "aa",  true },
+        {  3,               "aaa",         "aa", false },
+        {  4,                "aa",        "aaa", false },
+        {  5,                "aa",          "*",  true },
+        {  6,                "aa",         "a*",  true },
+        {  7,                "ab",         "?*",  true },
+        {  8,               "aab",      "c*a*b", false },
+        {  9,                 "a",          "?",  true },
+        { 10,                  "",          "*",  true },
+        { 11,                  "",         "*b", false },
+        { 12,                 "b",         "*b",  true },
+        { 13,                 "c",         "*b", false },
+        { 14,               "abc",        "*?*",  true },
+        { 15,                 "a",         "*?",  true },
+        { 16,                 "a",         "?*",  true },
+        { 17,                  "",          "?", false },
+        { 18,                "ab",        "***",  true },
+        { 19,                  "",           "",  true },
+        { 20,              "aaab",        "a*b",  true },
+        { 21,               "aaa",        "*b*", false },
+        { 22, "abefcdgiescdfimde", "ab*cd?i*de",  true },
+        { 23,           "abccxxc",         "*c",  true },
+        { 24,                "hi",         "*?",  true },
+        { 25,               "abc", "a********?",  true },
+        { 26,               "abc", "**********",  true },
+        { 27, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb", true },
     };
     int NUM_CASES = sizeof(TEST_CASES) / sizeof(TEST_CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
