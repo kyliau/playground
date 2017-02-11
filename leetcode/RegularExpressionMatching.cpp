@@ -27,15 +27,11 @@ public:
         assert(pi < pn - 1);
         assert(p[pi + 1] == '*');
         char c = p[pi];
-        if (si < sn) {
+        do {
             if (matchHere(s, p, si, pi + 2)) {
                 return true;
             }
-            if (c == '.' || c == s[si]) {
-                return matchStar(s, p, si + 1, pi);
-            }
-            return false;
-        }
+        } while (si < sn && (c == s[si++] || c == '.'));
         return false;
     }
 
@@ -92,7 +88,8 @@ int main() {
         { 19,  "aaa",    ".*.",   true },
         { 20,  "aaa",   ".*.*",   true },
         { 21,  "aaa",  "a*aaa",   true },
-        { 22,     "",     ".*",   true },
+        { 22,     "",    ".*.",  false },
+        { 23,    "x",       "",  false },
     };
     int NUM_CASES = sizeof(TEST_CASES) / sizeof(TEST_CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
