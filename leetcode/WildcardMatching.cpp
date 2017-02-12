@@ -90,12 +90,12 @@ class GreedySolution {
                 ++si;
             }
             else if (pi < pn && p[pi] == '*') {
-                last_si = si;
+                last_si = si + 1;
                 lastStar = pi++;
             }
             else if (lastStar != -1) {
                 pi = lastStar;
-                si = ++last_si;
+                si = last_si;
             }
             else {
                 return false;
@@ -192,8 +192,8 @@ int main() {
         { 28,            "abcabc",        "c?*", false },
         { 29,            "abcabc",       "a?*c",  true },
         { 30,           "abcdabc",     "a*d?*c",  true },
-        //{ 31, "aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*", true },
-        //{ 32, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "*aa*ba*a*bb*aa*ab*a*aaaaaa*a*aaaa*bbabb*b*b*aaaaaaaaa*a*ba*bbb*a*ba*bb*bb*a*b*bb", false },
+        { 31, "aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*", true },
+        { 32, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "*aa*ba*a*bb*aa*ab*a*aaaaaa*a*aaaa*bbabb*b*b*aaaaaaaaa*a*ba*bbb*a*ba*bb*bb*a*b*bb", false },
     };
     int NUM_CASES = sizeof(TEST_CASES) / sizeof(TEST_CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
@@ -203,8 +203,8 @@ int main() {
         bool          expected  = TEST_CASES[i].match;
         cout << "Test case " << n << "\t... ";
         //RecursiveSolution sol;
-        //GreedySolution    sol;
-        DpSolution        sol;
+        GreedySolution    sol;
+        //DpSolution        sol;
         bool result = sol.isMatch(s, p);
         if (result == expected) {
             cout << "PASS" << endl;
