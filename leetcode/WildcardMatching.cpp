@@ -99,13 +99,43 @@ class GreedySolution {
 
 class DpSolution {
     private:
-        vect
+        vector<vector<int>> d_memo;
     public:
     bool matchHere(const string& s, const string& p, int si, int pi) {
-        if
-
+        int sn = s.length();
+        int pn = p.length();
+        if (pi == pn) {
+            return si == sn;
+        }
+        if (si == sn) {
+            while (pi < pn) {
+                if (p[pi++] != '*') {
+                    return false;
+                }
+            }
+            return true;
+        }
+        if (-1 != d_memo[si][pi]) {
+            return d_memo[si][pi];                                    // RETURN
+        }
+        int result = 0;
+        if (p[pi] == '?' || p[pi] == s[si]) {
+            result = matchHere(s, p, si + 1, pi + 1);
+        }
+        else if (p[pi] == '*') {
+            result = matchHere(s, p, si, pi + 1) ||
+                     matchHere(s, p, si + 1, pi);
+        }
+        d_memo[si][pi] = result;
+        return result;
     }
     bool isMatch(const string& s, const string& p) {
+        int sn = s.length();
+        int pn = p.length();
+        d_memo.resize(sn);
+        for (int i = 0; i < sn; ++i) {
+            d_memo[i].resize(pn, -1);
+        }
         return matchHere(s, p, 0, 0);
     }
 };
@@ -149,8 +179,8 @@ int main() {
         { 28,            "abcabc",        "c?*", false },
         { 29,            "abcabc",       "a?*c",  true },
         { 30,           "abcdabc",     "a*d?*c",  true },
-        //{ 31, "aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*", true },
-        //{ 32, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "*aa*ba*a*bb*aa*ab*a*aaaaaa*a*aaaa*bbabb*b*b*aaaaaaaaa*a*ba*bbb*a*ba*bb*bb*a*b*bb", false },
+        { 31, "aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*", true },
+        { 32, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "*aa*ba*a*bb*aa*ab*a*aaaaaa*a*aaaa*bbabb*b*b*aaaaaaaaa*a*ba*bbb*a*ba*bb*bb*a*b*bb", false },
     };
     int NUM_CASES = sizeof(TEST_CASES) / sizeof(TEST_CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
@@ -160,8 +190,8 @@ int main() {
         bool          expected  = TEST_CASES[i].match;
         cout << "Test case " << n << "\t... ";
         //RecursiveSolution sol;
-        GreedySolution    sol;
-        //DpSolution        sol;
+        //GreedySolution    sol;
+        DpSolution        sol;
         bool result = sol.isMatch(s, p);
         if (result == expected) {
             cout << "PASS" << endl;
