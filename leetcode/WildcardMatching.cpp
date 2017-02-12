@@ -18,6 +18,17 @@
 
 using namespace std;
 
+ostream& operator<<(ostream& stream, const vector<vector<int>>& v) {
+    for (int i = 0; i < v.size(); ++i) {
+        cout << "\n[ ";
+        for (int j = 0; j < v[i].size(); ++j) {
+            cout << (j == 0 ? "" : ", ") << (v[i][j] < 0 ? "" : " ") << v[i][j];
+        }
+        cout << " ]";
+    }
+    return stream;
+}
+
 class RecursiveSolution {
     public:
     bool matchStar(const string& s, const string& p, int si, int pi) {
@@ -136,7 +147,9 @@ class DpSolution {
         for (int i = 0; i < sn; ++i) {
             d_memo[i].resize(pn, -1);
         }
-        return matchHere(s, p, 0, 0);
+        bool result = matchHere(s, p, 0, 0);
+        //cout << d_memo << endl;
+        return result;
     }
 };
 
@@ -179,8 +192,8 @@ int main() {
         { 28,            "abcabc",        "c?*", false },
         { 29,            "abcabc",       "a?*c",  true },
         { 30,           "abcdabc",     "a*d?*c",  true },
-        { 31, "aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*", true },
-        { 32, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "*aa*ba*a*bb*aa*ab*a*aaaaaa*a*aaaa*bbabb*b*b*aaaaaaaaa*a*ba*bbb*a*ba*bb*bb*a*b*bb", false },
+        //{ 31, "aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*", true },
+        //{ 32, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "*aa*ba*a*bb*aa*ab*a*aaaaaa*a*aaaa*bbabb*b*b*aaaaaaaaa*a*ba*bbb*a*ba*bb*bb*a*b*bb", false },
     };
     int NUM_CASES = sizeof(TEST_CASES) / sizeof(TEST_CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
