@@ -14,24 +14,25 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
+#include <vector>
 
 using namespace std;
 
-class Solution {
-public:
+class RecursiveSolution {
+    public:
     bool matchStar(const string& s, const string& p, int si, int pi) {
-        //cout << "Match star " << s.substr(si) << " with " << p.substr(pi) << endl;
+        // Recursion method. It is exponentially slow!
         int sn = s.length();
         int pn = p.length();
         assert(p[pi] == '*');
-        while (pi < pn - 1 && p[pi + 1] == '*') {
+        while (pi < pn && p[pi] == '*') {
             ++pi;
         }
-        if (pi == pn - 1) {
+        if (pi == pn) {
             return true;
         }
         do {
-            if (matchHere(s, p, si, pi + 1)) {
+            if (matchHere(s, p, si, pi)) {
                 return true;
             }
             ++si;
@@ -40,7 +41,6 @@ public:
     }
 
     bool matchHere(const string& s, const string& p, int si, int pi) {
-        //cout << "Match here " << s.substr(si) << " with " << p.substr(pi) << endl;
         int sn = s.length();
         int pn = p.length();
         while (pi < pn) {
@@ -59,6 +59,52 @@ public:
         return si == sn;
     }
 
+    bool isMatch(const string& s, const string& p) {
+        return matchHere(s, p, 0, 0);
+    }
+};
+
+class GreedySolution {
+    public:
+    bool isMatch(const string& s, const string& p) {
+        int si = 0;
+        int pi = 0;
+        int sn = s.length();
+        int pn = p.length();
+        int last_si = -1;
+        int lastStar = -1;
+        while (si < sn) {
+            if (pi < pn && (p[pi] == '?' || p[pi] == s[si])) {
+                ++pi;
+                ++si;
+            }
+            else if (pi < pn && p[pi] == '*') {
+                last_si = si;
+                lastStar = pi++;
+            }
+            else if (lastStar != -1) {
+                pi = lastStar;
+                si = ++last_si;
+            }
+            else {
+                return false;
+            }
+        }
+        while (pi < pn && p[pi] == '*') {
+            ++pi;
+        }
+        return pi == pn;
+    }
+};
+
+class DpSolution {
+    private:
+        vect
+    public:
+    bool matchHere(const string& s, const string& p, int si, int pi) {
+        if
+
+    }
     bool isMatch(const string& s, const string& p) {
         return matchHere(s, p, 0, 0);
     }
@@ -99,7 +145,12 @@ int main() {
         { 24,                "hi",         "*?",  true },
         { 25,               "abc", "a********?",  true },
         { 26,               "abc", "**********",  true },
-        { 27, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb", true },
+        { 27,               "abc",       "a*bc",  true },
+        { 28,            "abcabc",        "c?*", false },
+        { 29,            "abcabc",       "a?*c",  true },
+        { 30,           "abcdabc",     "a*d?*c",  true },
+        //{ 31, "aaaabaaaabbbbaabbbaabbaababbabbaaaababaaabbbbbbaabbbabababbaaabaabaaaaaabbaabbbbaababbababaabbbaababbbba", "*****b*aba***babaa*bbaba***a*aaba*b*aa**a*b**ba***a*a*", true },
+        //{ 32, "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb", "*aa*ba*a*bb*aa*ab*a*aaaaaa*a*aaaa*bbabb*b*b*aaaaaaaaa*a*ba*bbb*a*ba*bb*bb*a*b*bb", false },
     };
     int NUM_CASES = sizeof(TEST_CASES) / sizeof(TEST_CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
@@ -108,7 +159,9 @@ int main() {
         const string& p         = TEST_CASES[i].p;
         bool          expected  = TEST_CASES[i].match;
         cout << "Test case " << n << "\t... ";
-        Solution sol;
+        //RecursiveSolution sol;
+        GreedySolution    sol;
+        //DpSolution        sol;
         bool result = sol.isMatch(s, p);
         if (result == expected) {
             cout << "PASS" << endl;
