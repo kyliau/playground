@@ -14,34 +14,26 @@ using namespace std;
 class Solution {
 public:
     int trap(const vector<int>& heights) {
+        if (3 > heights.size()) {
+            return 0;
+        }
         int area = 0;
         auto it = std::max_element(heights.begin(), heights.end());
-        assert(it != heights.end());
         int tallest = it - heights.begin();
-        std::stack<int> s;
-        for (int i = tallest - 1; i >= 0; --i) {
-            int h = heights[i];
-            int r = heights[i + 1];
-            while (!s.empty() && h > heights[s.top()]) {
-                area += (s.top() - i) * (h - heights[s.top()]);
-                s.pop();
-            }
-            if (h <= r) {
-                s.push(i);
+        int level = heights[0];
+        for (int i = 1; i < tallest; ++i) {
+            if (heights[i] < level) {
+                area += level - heights[i];
+            } else {
+                level = heights[i];
             }
         }
-        while (!s.empty()) {
-            s.pop();
-        }
-        for (int i = tallest + 1; i < heights.size(); ++i) {
-            int h = heights[i];
-            int l = heights[i - 1];
-            while (!s.empty() && h > heights[s.top()]) {
-                area += (i - s.top()) * (h - heights[s.top()]);
-                s.pop();
-            }
-            if (h <= l) {
-                s.push(i);
+        level = heights.back();
+        for (int i = heights.size() - 2; i > tallest; --i) {
+            if (heights[i] < level) {
+                area += level - heights[i];
+            } else {
+                level = heights[i];
             }
         }
         return area;
