@@ -7,7 +7,6 @@
 #include <vector>
 #include <assert.h>
 #include <algorithm>
-#include <stack>
 
 using namespace std;
 
