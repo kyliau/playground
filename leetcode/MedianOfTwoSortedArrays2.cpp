@@ -22,25 +22,38 @@ private:
                     const vector<int>&  v1,
                     const vector<int>&  v2) {
         // Find the median in 'v1', and return true if found. Otherwise return
-        // false.
-        // For now, this only works if v1.size + v2.size is odd
+        // false and leave 'median' unmodified.
         int n1 = v1.size();
         int n2 = v2.size();
-        //bool even = (n1 + n2) % 2 == 0;
-        int target  = n1 + 0.5 * (n2 - n1);
-        int l  = 0;
-        int r  = n1;
+        int target = n1 + 0.5 * (n2 - n1);
+        int l = 0;
+        int r = n1;
         while (l < r) { // search range is [l, r) in v1
             int mid = l + 0.5 * (r - l);
             int more = target - mid;
-            if (more > n2 || (n2 > 0 && v2[more - 1] > v1[mid])) {
+            if (more > n2 || (more > 0 && v2[more - 1] > v1[mid])) {
                 l = mid + 1;
             }
             else if (more < 0 || (more < n2 && v2[more] < v1[mid])) {
                 r = mid;
             }
             else {
-                *median = v1[mid];
+                if ((n1 + n2) % 2 == 0) {
+                    int prev;
+                    if (mid > 0 && more > 0) {
+                        prev = std::max(v1[mid - 1], v2[more - 1]);
+                    }
+                    else if (mid > 0) {
+                        prev = v1[mid - 1];
+                    }
+                    else {
+                        prev = v2[more - 1];
+                    }
+                    *median = prev + (v1[mid] - prev) * 0.5;
+                }
+                else {
+                    *median = v1[mid];
+                }
                 return true;
             }
         }
@@ -51,7 +64,6 @@ public:
     double findMedianSortedArrays(const vector<int>& nums1,
                                   const vector<int>& nums2) {
         double median = 0;
-        //if ((nums1.size() + nums2.size()) % 2 == 0) { return 99; }
         if (!findMedian(&median, nums1, nums2)) {
             bool result = findMedian(&median, nums2, nums1);
             assert(result);
@@ -87,6 +99,7 @@ int main() {
         { 18, {             1 }, {   2, 3, 4, 5, 6, 7 },   4 },
         { 19, {    1, 2, 4, 5 }, {                  3 },   3 },
         { 20, {       1, 1, 1 }, {         2, 2, 2, 2 },   2 },
+        { 21, {             5 }, {      1, 2, 3, 4, 6 }, 3.5 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
