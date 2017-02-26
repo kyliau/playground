@@ -24,9 +24,70 @@
 //  Follow up:
 //  Can you do it in O(n) time?
 
+#include <vector>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
 class Solution {
 public:
-    int wiggleMaxLength(vector<int>& nums) {
-
+    int wiggleMaxLength(const vector<int>& nums) {
+        enum DIRECTION { UNDEFINED, UP, DOWN };
+        int maxLength = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            int prev = nums[i];
+            int length = 1;
+            DIRECTION d = UNDEFINED;
+            for (int j = i + 1; j < nums.size(); ++j) {
+                if (UP == d && nums[j] < prev) {
+                    d = DOWN;
+                    prev = nums[j];
+                    ++length;
+                }
+                else if (DOWN == d && nums[j] > prev) {
+                    d = UP;
+                    prev = nums[j];
+                    ++length;
+                }
+                else if (UNDEFINED == d && nums[j] != prev) {
+                    d = nums[j] > prev ? UP : DOWN;
+                    prev = nums[j];
+                    ++length;
+                }
+            }
+            maxLength = std::max(maxLength, length);
+        }
+        return maxLength;
     }
 };
+
+int main() {
+    const struct {
+        int         n;
+        vector<int> v;
+        int         expected;
+    } CASES[] = {
+        {  1, {                   1, 7, 4, 9, 2, 5 }, 6 },
+        {  2, { 1, 17, 5, 10, 13, 15, 10, 5, 16, 8 }, 7 },
+        {  3, {          1, 2, 3, 4, 5, 6, 7, 8, 9 }, 2 },
+        {  4, {                   1, 2, 3, 2, 3, 2 }, 5 },
+    };
+    const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
+    for (int i = 0; i < NUM_CASES; ++i) {
+        int   n        = CASES[i].n;
+        auto& v        = CASES[i].v;
+        int   expected = CASES[i].expected;
+        Solution s;
+        int result = s.wiggleMaxLength(v);
+        cout << "Test case " << (n < 10 ? " " : "") << n << " ... ";
+        if (result == expected) {
+            cout << "PASS";
+        } else {
+            cout << "FAIL (Expected " << expected << " but got " << result
+                 << ")";
+        }
+        cout << endl;
+    }
+    return 0;
+}
