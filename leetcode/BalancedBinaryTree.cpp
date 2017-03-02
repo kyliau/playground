@@ -21,15 +21,15 @@ private:
         if (!root) {
             return 0;
         }
-        int left  = 1 + height(root->left);
+        int left  = height(root->left);
         if (-1 == left) {
             return -1;
         }
-        int right = 1 + height(root->right);
+        int right = height(root->right);
         if (-1 == right || std::abs(left - right) > 1) {
             return -1;
         }
-        return std::max(left, right);
+        return 1 + std::max(left, right);
     }
 
 public:
