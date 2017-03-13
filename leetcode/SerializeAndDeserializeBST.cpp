@@ -17,6 +17,7 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
+#include <vector>
 
 using namespace std;
 
@@ -51,30 +52,36 @@ private:
         return stream;
     }
 
-    TreeNode *consume(istream& stream) {
-        if (!stream) {
-            return nullptr;
+    void deserialize(istream& stream, TreeNode *root) {
+        if (!root) {
+            return;
         }
         int val;
         stream >> val;
-        return new TreeNode(val);
-    }
-
-    TreeNode *deserialize(istream& stream, TreeNode *root) {
-        if (!stream || !root) {
-            return nullptr;
+        if (!stream) {
+            return;
         }
-        TreeNode *node = consume(stream);
-        if (!node) {
-            return nullptr;
-        }
-        if (node->val < root->val) {
+        TreeNode *node = new TreeNode(val);
+        if (val < root->val) {
             root->left = node;
-        }
-        else {
+        } else {
             root->right = node;
         }
-        return root;
+        deserialize(stream, node);
+    }
+
+    TreeNode *reconstruct(const vector<int>& v, int& i, TreeNode *p) {
+        if (i >= v.size()) {
+            return nullptr;
+        }
+        TreeNode *n = new TreeNode(v[i++]);
+        if (i < v.size() && v[i] < n->val) {
+            n->left = reconstruct(v, i);
+        }
+        if (i < v.size() && v[i] >= n->val) {
+            n->right = reconstruct(v, i);
+        }
+        return n;
     }
 
 public:
@@ -88,12 +95,23 @@ public:
 
     // Decodes your encoded data to tree.
     TreeNode* deserialize(const string& data) {
+        vector<int> v;
+        int x;
         istringstream stream(data);
-        //TreeNode *root = consume(stream);
-        //if (!root) {
-        //    return root;
+        while (stream >> x) {
+            v.emplace_back(x);
+        }
+        int i = 0;
+        return reconstruct(v, i, nullptr);
+        //int val;
+        //istringstream stream(data);
+        //stream >> val;
+        //if (!stream) {
+        //    return nullptr;
         //}
-        return deserialize(stream, consume(stream));
+        //TreeNode *root = new TreeNode(val);
+        //deserialize(stream, root);
+        //return root;
     }
 };
 
@@ -114,10 +132,25 @@ int main() {
         TreeNode *root = buildTree(10, buildTree(5), buildTree(11, buildTree(10), buildTree(12)));
         assert(isSameTree(root, root));
         Codec codec;
-        cout << codec.serialize(root) << endl;
+        string data = codec.serialize(root);
+        cout << data << endl;
+        TreeNode *newRoot = codec.deserialize(data);
+        assert(isSameTree(root, newRoot));
     }
     {
         TreeNode *root = buildTree(1, nullptr, buildTree(2, nullptr, buildTree(3, nullptr, buildTree(4))));
+        assert(isSameTree(root, root));
+        Codec codec;
+        cout << codec.serialize(root) << endl;
+    }
+    {
+        TreeNode *root = buildTree(4, buildTree(3, buildTree(2, buildTree(1), nullptr), nullptr), nullptr);
+        assert(isSameTree(root, root));
+        Codec codec;
+        cout << codec.serialize(root) << endl;
+    }
+    {
+        TreeNode *root = buildTree(20, buildTree(15, buildTree(10, buildTree(2), buildTree(14)), buildTree(18, buildTree(16), buildTree(19))), buildTree(30, buildTree(24, buildTree(20)), buildTree(31, nullptr, buildTree(32))));
         assert(isSameTree(root, root));
         Codec codec;
         cout << codec.serialize(root) << endl;
