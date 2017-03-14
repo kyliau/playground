@@ -18,6 +18,7 @@
 #include <string>
 #include <assert.h>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
@@ -52,40 +53,17 @@ private:
         return stream;
     }
 
-    void deserialize(istream& stream, TreeNode *root) {
-        if (!root) {
-            return;
-        }
-        int val;
-        stream >> val;
-        if (!stream) {
-            return;
-        }
-        TreeNode *node = new TreeNode(val);
-        if (val < root->val) {
-            root->left = node;
-        } else {
-            root->right = node;
-        }
-        deserialize(stream, node);
-    }
-
-    TreeNode *reconstruct(const vector<int>& v, int& i, TreeNode *p) {
-        if (i >= v.size()) {
+    TreeNode *reconstruct(const vector<int>& v, int& i, int min, int max) {
+        if (i >= v.size() || v[i] < min || v[i] > max) {
             return nullptr;
         }
         TreeNode *n = new TreeNode(v[i++]);
-        if (i < v.size() && v[i] < n->val) {
-            n->left = reconstruct(v, i);
-        }
-        if (i < v.size() && v[i] >= n->val) {
-            n->right = reconstruct(v, i);
-        }
+        n->left  = reconstruct(v, i, min, n->val);
+        n->right = reconstruct(v, i, n->val, max);
         return n;
     }
 
 public:
-
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
         ostringstream stream;
@@ -102,16 +80,10 @@ public:
             v.emplace_back(x);
         }
         int i = 0;
-        return reconstruct(v, i, nullptr);
-        //int val;
-        //istringstream stream(data);
-        //stream >> val;
-        //if (!stream) {
-        //    return nullptr;
-        //}
-        //TreeNode *root = new TreeNode(val);
-        //deserialize(stream, root);
-        //return root;
+        return reconstruct(v,
+                           i,
+                           std::numeric_limits<int>::min(),
+                           std::numeric_limits<int>::max());
     }
 };
 
@@ -133,7 +105,6 @@ int main() {
         assert(isSameTree(root, root));
         Codec codec;
         string data = codec.serialize(root);
-        cout << data << endl;
         TreeNode *newRoot = codec.deserialize(data);
         assert(isSameTree(root, newRoot));
     }
@@ -141,18 +112,24 @@ int main() {
         TreeNode *root = buildTree(1, nullptr, buildTree(2, nullptr, buildTree(3, nullptr, buildTree(4))));
         assert(isSameTree(root, root));
         Codec codec;
-        cout << codec.serialize(root) << endl;
+        string data = codec.serialize(root);
+        TreeNode *newRoot = codec.deserialize(data);
+        assert(isSameTree(root, newRoot));
     }
     {
         TreeNode *root = buildTree(4, buildTree(3, buildTree(2, buildTree(1), nullptr), nullptr), nullptr);
         assert(isSameTree(root, root));
         Codec codec;
-        cout << codec.serialize(root) << endl;
+        string data = codec.serialize(root);
+        TreeNode *newRoot = codec.deserialize(data);
+        assert(isSameTree(root, newRoot));
     }
     {
         TreeNode *root = buildTree(20, buildTree(15, buildTree(10, buildTree(2), buildTree(14)), buildTree(18, buildTree(16), buildTree(19))), buildTree(30, buildTree(24, buildTree(20)), buildTree(31, nullptr, buildTree(32))));
         assert(isSameTree(root, root));
         Codec codec;
-        cout << codec.serialize(root) << endl;
+        string data = codec.serialize(root);
+        TreeNode *newRoot = codec.deserialize(data);
+        assert(isSameTree(root, newRoot));
     }
 }
