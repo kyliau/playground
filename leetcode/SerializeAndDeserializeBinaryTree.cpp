@@ -85,7 +85,7 @@ class Codec {
 
 TreeNode *make(int val, TreeNode *left = nullptr, TreeNode *right = nullptr) {
     TreeNode *n = new TreeNode(val);
-    n->left = left;
+    n->left  = left;
     n->right = right;
     return n;
 }
@@ -111,6 +111,11 @@ int main() {
             1,
             make(1, make(2), make(3, make(4), make(5))),
             "1 2 # # 3 4 # # 5 # #"
+        },
+        {
+            2,
+            make(1, make(2, make(3)), make(4, nullptr, make(5))),
+            "1 2 3 # # # 4 # 5 # #"
         },
     };
     int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
