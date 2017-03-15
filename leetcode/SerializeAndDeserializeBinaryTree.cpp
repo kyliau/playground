@@ -123,6 +123,7 @@ int main() {
         int   n        = CASES[i].n;
         auto  node     = CASES[i].node;
         auto& expected = CASES[i].expected;
+        assert(isSameTree(node, node));
         cout << "Test case " << n << " ... ";
         Codec c;
         string result = c.serialize(node);
