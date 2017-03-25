@@ -8,3 +8,5 @@
 - preposterous
   * outrageous
 - clique
+- revulsion
+  * a strong feeling of disgust or horror (repugnance)
