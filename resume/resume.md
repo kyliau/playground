@@ -1,6 +1,6 @@
-    Keen Yee Liau                                             (734) 747-0922
-    546 Main St Apt 827                                     kyliau@umich.edu
-    New York NY 10044                               https://kyliau.github.io
+Keen Yee Liau                                                     (734) 747-0922
+546 Main St Apt 827                                             kyliau@umich.edu
+New York NY 10044                                       https://kyliau.github.io
 
 --------------------------------------------------------------------------------
 
