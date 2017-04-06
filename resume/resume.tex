@@ -4,7 +4,11 @@
 % (c) 2003-2007 David J. Grant <davidgrant-at-gmail.com> http://www.davidgrant.ca
 % (c) 2007-2014 Todd C. Miller <Todd.Miller@courtesan.com> http://www.courtesan.com/todd
 %
-% This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+% This work is licensed under the Creative Commons Attribution-ShareAlike 3.0
+% Unported License. To view a copy of this license, visit
+% http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to
+% Creative Commons, 171 Second Street, Suite 300,
+% San Francisco, California, 94105, USA.
 
 \documentclass[letterpaper,11pt]{article}
 
@@ -36,15 +40,15 @@
 \newcommand{\ressubheading}[4]{
 \begin{tabular*}{7.0in}{l@{\extracolsep{\fill}}r}
 		\textbf{#1} & #2 \\
-		\textit{#3} & \textit{#4} \\
+		\emph{#3} & \textit{#4} \\
 \end{tabular*}\vspace{-6pt}}
 \newcommand{\restitle}[2]{
-\begin{tabular*}{7.0in}{l@{\extracolsep{\fill}}r}
+\begin{tabular*}{7.1in}{l@{\extracolsep{\fill}}r}
 		\textbf{#1} & #2 \\
 \end{tabular*}}
 \newcommand{\ressubtitle}[2]{
-\begin{tabular*}{7.0in}{l@{\extracolsep{\fill}}r}
-		\textit{#1} & \textit{#2} \\
+\begin{tabular*}{7.1in}{l@{\extracolsep{\fill}}r}
+		\emph{#1} & #2 \\
 \end{tabular*}\vspace{-6pt}}
 %-----------------------------------------------------------
 
@@ -54,15 +58,12 @@
 \begin{tabular*}{7.5in}{l@{\extracolsep{\fill}}r}
 \textbf{\large Keen Yee Liau}  & (734) 747-0922 \\
 546 Main St. Apt 827 &  kyliau@umich.edu                                \\
-New York, NY 10044 & \href{https://kyliau.appspot.com/}{https://kyliau.appspot.com} \\
+New York, NY 10044 & \href{https://kyliau.github.io}{https://kyliau.github.io} \\
 \end{tabular*}
 
 \vspace{0.1in}
 %\hrules
 %\vspace{0.05in}
-
-\resheading{Objective}
-Self-motivated software engineer seeking to apply my experience in full-stack development and knowledge in C\verb!++! and Javascript to build critical software infrastructure.
 
 \resheading{Education}
 \begin{itemize}
@@ -89,26 +90,50 @@ Self-motivated software engineer seeking to apply my experience in full-stack de
 \item
 	\restitle{Bloomberg LP}{New York, NY}
 	\ressubtitle{Infrastructure Software Engineer}{Dec. 2014 - Present}
-	\begin{itemize}
-		\resitem{In charge of the bundle publishing pipeline that optimizes and packages Javascript code.}
-		\resitem{Work on the version release system for a new platform that powers the Bloomberg Terminal.
-		         The system enables auto-update and targeted software deployment in real time.}
-		\resitem{Responsible for a permissionning system that allows developers to restrict and monitor usage of their APIs.}
-	\end{itemize}
+	\begin{enumerate}
+		\item{Version Release System (VRS)}
+		\begin{itemize}
+			\resitem{A critical service that performs dependency tree resolution
+			         of Javascript applications in real-time.}
+			\resitem{This enables automatic software update and targeted
+			         software deployment based on a flexible set of rules.}
+			\resitem{Serves 22 million requests every day.}
+			\resitem{Written in C\texttt{++} (backend) and Javascript (UI).}
+		\end{itemize}
+		\item{Bundle Publishing}
+		\begin{itemize}
+			\resitem{Developed a pipeline to validate, optimize, package, and
+			         distribute Javascript code for a new platform that powers
+					 the Bloomberg Terminal.}
+			\resitem{Service runs on the cloud and is used to publish about 1000
+			         Javascript applications.}
+			\resitem{Written in Javascript using Node.js runtime.}
+		\end{itemize}
+		\item{Resource Access Validation (RAV)}
+		\begin{itemize}
+			\resitem{A permissioning system that allows developers to restrict
+			         and monitor usage of their APIs.}
+			\resitem{Written in C\texttt{++} (backend) and Javascript (UI).}
+		\end{itemize}
+	\end{enumerate}
 
 \item
 	\restitle{FlightAware}{Houston, TX}
 	\ressubtitle{Intern}{June 2014 - Oct. 2014}
 	\begin{itemize}
-		\resitem{Improved the reliability of FlightAware APIs by developing a comprehensive test suite in Python.}
+		\resitem{Improved the reliability of FlightAware public APIs by
+		         developing a comprehensive test suite in Python.}
 	\end{itemize}
 
 \item
 	\restitle{Stress Analysis and Design Aerospace}{Kuala Lumpur, Malaysia}
 	\ressubtitle{Structural Engineer}{Sep. 2011 - July 2012}
 	\begin{itemize}
-		\resitem{Airbus A350XWB Flight Test Program: Co-authored six stress dossiers for static analysis of Flight Test Instruments (FTI) using classical methods and finite element modeling.}
-		\resitem{Developed a program to estimate the lifespan of an aircraft by analyzing fatigue and cyclic loads on the wings.}
+		\resitem{Co-authored six stress dossiers for static analysis of
+		         Flight Test Instruments (FTI) on the new Airbus A350XWB
+		         using classical methods and finite element modeling.}
+		\resitem{Developed a program to estimate the lifespan of an aircraft by
+		         analyzing fatigue and cyclic loads on the wings.}
 	\end{itemize}
 
 \end{itemize}
@@ -129,20 +154,21 @@ Self-motivated software engineer seeking to apply my experience in full-stack de
 
 %\begin{description}
 %\item[Expense Tracker]
-%a website to keep track of group travel costs. Developed using Python and webapp2 framework, hosted on Google App Engine.
+%a website to keep track of group travel costs. Developed using Python and
+%webapp2 framework, hosted on Google App Engine.
 %\end{description}
 
 \resheading{Skills}
 
 \begin{description}
 \item[Programming:]
-C\verb!++!, Javascript
+C\texttt{++}, Javascript
 %\item[Tools:]
 %Vim, Git
 \item[Operating Systems:]
 Windows, Mac OS X, Linux
 \item[Languages:]
-English, Chinese (Mandarin), and Malay
+English, Chinese, and Malay
 \end{description}
 
 \end{document}

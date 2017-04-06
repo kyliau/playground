@@ -18,17 +18,18 @@ New York NY 10044                                       https://kyliau.github.io
 - Bloomberg LP                                                      New York, NY
   * Infrastructure Software Engineer                         Dec. 2014 - Present
     1. Version Release System (VRS)
-       + A critical deployment tool that performs dependency tree resolution of
+       + A critical service that performs dependency tree resolution of
          Javascript applications in real-time.
-       + Enables automatic software update and targeted software deployment.
+       + This enables automatic software update and targeted software
+         deployment based on a set of rules.
        + Serves 22 million requests each day.
        + Written in C++ (backend) and Javascript (UI).
     2. Bundle Publishing
        + Developed a pipeline to optimize, package, and distribute Javascript
-         code.
-       + Service runs on a cloud platform and is used to publish ~1000
-         Javascript applications.
-       + Written in Javascript on the Node.js platform.
+         code for a new platform that powers the Bloomberg Terminal.
+       + Service runs on the cloud and is used to publish ~1000 Javascript
+         applications.
+       + Written in Javascript on Node.js runtime.
     3. Resource Access Validation (RAV)
        + A permissioning system that allows developers to restrict and monitor
          usage of their APIs.
@@ -41,10 +42,9 @@ New York NY 10044                                       https://kyliau.github.io
 
 - Stress Analysis and Design (STRAND) Aerospace           Kuala Lumpur, Malaysia
   * Structural Engineer                                   Sept. 2011 - July 2012
-    1. Airbus A350XWB Flight Test Program
-       + Co-authored six stress dossiers for static analysis of
-         Flight Test Instruments (FTI) using classical methods and finite
-         element modeling.
+    + Co-authored six stress dossiers for static analysis of Flight Test
+      Instruments (FTI) on the Airbus A350XWB using classical methods and finite
+      element modeling.
 
 ## Skills
 - Programming: C++, Javascript
