@@ -15,3 +15,5 @@
   * having or showing very strong and sincere feelings about something (ardent)
 - balmy
   * warm and pleasant
+- blithe
+  * happy; not anxious
