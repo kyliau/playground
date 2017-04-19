@@ -30,8 +30,8 @@
 
 using namespace std;
 
-class Solution {
-public:
+class Solution2 {
+  public:
     int wiggleMaxLength(const vector<int>& nums) {
         enum DIRECTION { UNDEFINED, UP, DOWN };
         int maxLength = 0;
@@ -59,6 +59,34 @@ public:
             maxLength = std::max(maxLength, length);
         }
         return maxLength;
+    }
+};
+
+class Solution {
+  public:
+    int wiggleMaxLength(const vector<int>& nums) {
+        if (nums.empty()) {
+            return 0;
+        }
+        vector<int> up(nums.size());
+        vector<int> down(nums.size());
+        up[0]   = 1;
+        down[0] = 1;
+        for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i] > nums[i - 1]) {
+                up[i]   = up[i - 1];
+                down[i] = up[i - 1] + 1;
+            }
+            else if (nums[i] < nums[i - 1]) {
+                up[i]   = down[i - 1] + 1;
+                down[i] = down[i - 1];
+            }
+            else {
+                up[i]   = up[i - 1];
+                down[i] = down[i - 1];
+            }
+        }
+        return std::max(up.back(), down.back());
     }
 };
 
