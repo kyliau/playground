@@ -20,29 +20,27 @@ struct ListNode {
 class Solution {
   public:
     ListNode* mergeKLists(const vector<ListNode*>& lists) {
-        using Pair = std::pair<ListNode *, int>;
-        auto cmp = [](const Pair& lhs, const Pair& rhs) {
-            assert(lhs.first);
-            assert(rhs.first);
-            return lhs.first->val > rhs.first->val;
+        auto cmp = [](const ListNode *lhs, const ListNode *rhs) {
+            assert(lhs);
+            assert(rhs);
+            return lhs->val > rhs->val;
         };
-        std::priority_queue<Pair, std::vector<Pair>, decltype(cmp)> q(cmp);
+        std::priority_queue<ListNode *, std::vector<ListNode *>, decltype(cmp)> q(cmp);
         ListNode head(0);
 
         for (int i = 0; i < lists.size(); ++i) {
             ListNode *node = lists[i];
             if (node) {
-                q.push(Pair(node, i));
+                q.push(node);
             }
         }
 
         ListNode *current = &head;
         while (!q.empty()) {
-            Pair p = q.top();
+            ListNode *node = q.top();
             q.pop();
-            ListNode *node = p.first;
             if (node->next) {
-                q.push(Pair(node->next, p.second));
+                q.push(node->next);
             }
             current->next = node;
             current = current->next;
