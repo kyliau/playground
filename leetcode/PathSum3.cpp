@@ -40,11 +40,12 @@ TreeNode *makeTree(int x, int y, int z) {
     return node;
 }
 
-//TreeNode *makeTree(int x, int y) {
-//    TreeNode *node = new TreeNode(x);
-//    node->left     = new TreeNode(y);
-//    return node;
-//}
+TreeNode *makeTree(int x, int y, TreeNode *z = nullptr) {
+    TreeNode *node = new TreeNode(x);
+    node->left     = new TreeNode(y);
+    node->right    = z;
+    return node;
+}
 
 TreeNode *makeTree(int x, TreeNode *y, int z) {
     TreeNode *node = new TreeNode(x);
@@ -53,7 +54,7 @@ TreeNode *makeTree(int x, TreeNode *y, int z) {
     return node;
 }
 
-TreeNode *makeTree(int x, TreeNode *y, TreeNode *z) {
+TreeNode *makeTree(int x, TreeNode *y = nullptr, TreeNode *z = nullptr) {
     TreeNode *node = new TreeNode(x);
     node->left     = y;
     node->right    = z;
@@ -110,6 +111,23 @@ class Solution2 {
     }
 };
 
+class Solution3 {
+  private:
+
+  public:
+    int pathSum(TreeNode *root, int sum) {
+        if (!root) {
+            return 0;
+        }
+        int count = root->val == sum ? 1 : 0;
+        // This approach is not right because somehow it overcounts
+        return count + pathSum(root->left, sum - root->val)
+                     + pathSum(root->right, sum - root->val)
+                     + pathSum(root->left, sum)
+                     + pathSum(root->right, sum);
+    }
+};
+
 int main() {
     const struct {
         int       n;
@@ -118,6 +136,10 @@ int main() {
         int       expected;
     } CASES[] = {
         { 1, makeTree(10, makeTree(5, makeTree(3, 3, -2), makeTree(2, nullptr, 1)), makeTree(-3, nullptr, 11)), 8, 3 },
+        { 2, makeTree(10, 0, 0), 10, 3 },
+        { 3, makeTree(3, 1, 2), 4, 1 },
+        { 4, makeTree(2, 2, 2), 4, 2 },
+        { 5, makeTree(2, 0, makeTree(4, -2)), 2, 3 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
