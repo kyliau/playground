@@ -29,7 +29,7 @@ class Solution {
         }
         int m = l + (r - l) / 2;
         int count = reversePairs(nums, l, m) + reversePairs(nums, m + 1, r);
-        //cout << "count for [" << l << ", " << r << "] is " << count << endl;
+
         int i = l;          // index for left subarray
         int j = m + 1;      // index for right subarray
         int k = 0;          // index for insertion position into 'merge'
@@ -49,6 +49,10 @@ class Solution {
                 merge[k++] = nums[i++];
             }
             else if (nums[i] <= nums[j]) {
+                while (p <= r && nums[i] > 2L * nums[p]) {
+                    ++p;
+                }
+                count += p - m - 1;
                 merge[k++] = nums[i++];
             }
             else {
