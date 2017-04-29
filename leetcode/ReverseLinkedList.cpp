@@ -55,6 +55,20 @@ class Solution {
     }
 };
 
+// Recursive solution
+class Solution2 {
+  public:
+    ListNode *reverseList(ListNode *head) {
+        if (!head || !head->next) {
+            return head;
+        }
+        ListNode *rest = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return rest;
+    }
+};
+
 int main() {
     const struct {
         int         n;
@@ -72,7 +86,7 @@ int main() {
         auto& v = CASES[i].v;
         auto& e = CASES[i].expected;
         cout << "Test case " << n << " ... ";
-        Solution s;
+        Solution2 s;
         ListNode *result = s.reverseList(makeList(v));
         if (isSame(result, makeList(e))) {
             cout << "PASS";
