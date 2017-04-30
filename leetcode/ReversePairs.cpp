@@ -41,14 +41,7 @@ class Solution {
             if (i == m + 1) {           // reach end of left subarray
                 merge[k++] = nums[j++];
             }
-            else if (j == r + 1) {      // reach end of right subarray
-                while (p <= r && nums[i] > 2L * nums[p]) {
-                    ++p;
-                }
-                count += p - m - 1;
-                merge[k++] = nums[i++];
-            }
-            else if (nums[i] <= nums[j]) {
+            else if (j == r + 1 || nums[i] <= nums[j]) {
                 while (p <= r && nums[i] > 2L * nums[p]) {
                     ++p;
                 }
