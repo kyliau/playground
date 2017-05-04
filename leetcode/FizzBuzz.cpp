@@ -33,17 +33,18 @@ class Solution {
     vector<string> fizzBuzz(int n) {
         vector<string> results(n);
         for (int i = 0; i < n; ++i) {
-            if (i % 15 == 0) {
+            int x = i + 1;
+            if (x % 15 == 0) {
                 results[i] = "FizzBuzz";
             }
-            else if (i % 5 == 0) {
+            else if (x % 5 == 0) {
                 results[i] = "Buzz";
             }
-            else if (i % 3 == 0) {
+            else if (x % 3 == 0) {
                 results[i] = "Fizz";
             }
             else {
-                result[i] = to_string(i);
+                results[i] = to_string(x);
             }
         }
         return results;
