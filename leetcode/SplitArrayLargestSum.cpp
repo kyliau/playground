@@ -27,7 +27,7 @@
 #include <assert.h>
 using namespace std;
 
-class Solution {
+class Solution1 {       // this doesn't work somehow
   private:
     int split(const vector<int>& nums, int l, int r, int m) {
         if (l >= r || m > r - l) {
@@ -58,6 +58,44 @@ class Solution {
     }
 };
 
+class Solution {
+  private:
+    bool isPossible(const vector<int>& nums, int m, int target) {
+        int sum = 0;
+        for (int x : nums) {
+            if (sum + x <= target) {
+                sum += x;
+            }
+            else {
+                sum = x;
+                if (--m == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+  public:
+    int splitArray(const vector<int>& nums, int m) {
+        int lower = 0;  // the lower bound should be the max element in 'nums'
+        int upper = 0;  // the upper bound should be the sum of the entire array
+        for (int x : nums) {
+            lower = std::max(lower, x);
+            upper += x;
+        }
+        while (lower < upper) {
+            int mid = lower + (upper - lower) / 2;
+            if (isPossible(nums, m, mid)) {
+                upper = mid;
+            }
+            else {
+                lower = mid + 1;
+            }
+        }
+        return lower;
+    }
+};
+
 int main() {
     const struct {
         int         n;
@@ -65,20 +103,20 @@ int main() {
         int         m;
         int         expected;
     } CASES[] = {
-        {  1, {          1 }, 1,  1 },
-        {  2, {       1, 2 }, 1,  3 },
-        {  3, {       1, 2 }, 2,  2 },
-        {  4, {    1, 2, 3 }, 1,  6 },
-        {  5, {    1, 2, 3 }, 2,  3 },
-        {  6, {    1, 2, 3 }, 3,  3 },
-        {  7, { 1, 2, 3, 4 }, 1, 10 },
-        {  8, { 1, 2, 3, 4 }, 2,  6 },
-        {  9, { 1, 2, 3, 4 }, 3,  4 },
-        { 10, { 1, 2, 3, 4 }, 4,  4 },
+        {  1, {               1 }, 1,  1 },
+        {  2, {            1, 2 }, 1,  3 },
+        {  3, {            1, 2 }, 2,  2 },
+        {  4, {         1, 2, 3 }, 1,  6 },
+        {  5, {         1, 2, 3 }, 2,  3 },
+        {  6, {         1, 2, 3 }, 3,  3 },
+        {  7, {      1, 2, 3, 4 }, 1, 10 },
+        {  8, {      1, 2, 3, 4 }, 2,  6 },
+        {  9, {      1, 2, 3, 4 }, 3,  4 },
+        { 10, {      1, 2, 3, 4 }, 4,  4 },
         { 11, { 10, 5, 13, 4, 8 }, 1, 40 },
         { 12, { 10, 5, 13, 4, 8 }, 2, 25 },
         { 13, { 10, 5, 13, 4, 8 }, 3, 15 },
-        //{ 11, { 10, 5, 13, 4, 8, 4, 5, 11, 14, 9, 16, 10, 20, 8 }, 8, 25 },
+        { 14, { 10, 5, 13, 4, 8, 4, 5, 11, 14, 9, 16, 10, 20, 8 }, 8, 25 },
     };
     const int NUM_CASES = sizeof(CASES) / sizeof(CASES[0]);
     for (int i = 0; i < NUM_CASES; ++i) {
