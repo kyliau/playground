@@ -114,3 +114,7 @@
 - dorky
   * stupid, boring or not fashionable in a way that makes other people
     laugh at you
+- acquiesce
+- upbraid
+- vile
+
