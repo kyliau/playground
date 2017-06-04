@@ -4,7 +4,7 @@
 // You may assume no duplicate exists in the array.
 
 class Solution {
-public:
+  public:
     int findMin(vector<int>& nums) {
         int last = nums.back();
         int left = 0;
