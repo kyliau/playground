@@ -21,24 +21,23 @@
 // Output : False
 
 class Solution {
+  private:
+    int gcd(int a, int b) {
+        while (b > 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
   public:
     bool canMeasureWater(int x, int y, int z) {
-        if (z == 0) {
-            return true;
-        }
-        if (x < 0 || y < 0) {
+        if (x + y < z) {
             return false;
         }
-        if (z % x == 0 || z % y == 0) {
+        if (x == z || y == z || x + y == z) {
             return true;
         }
-        if (x > y) {
-            std::swap(x, y);
-        }
-        if (y - x == z) {
-            return true;
-        }
-        // The invariant is that x <= y
-        return canMeasureWater(x, y - x, z) || canMeasureWater(y - x, y, z);
+        return z % gcd(x, y) == 0;
     }
 };
