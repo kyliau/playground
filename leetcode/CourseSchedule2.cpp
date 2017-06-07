@@ -31,37 +31,40 @@ class Solution {
   public:
     vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
         vector<vector<int>> graph(numCourses);
-        vector<int> indegrees(numCourses, 0);
+        vector<int>         indegrees(numCourses, 0);
+        queue<int>          q;
 
         for (const auto& pair : prerequisites) {
             graph[pair.second].emplace_back(pair.first);    // must take second before first
             ++indegrees[pair.first];
         }
 
+        for (int n = 0; n < indegrees.size(); ++n) {
+            if (indegrees[n] == 0) {
+                q.push(n);
+            }
+        }
+
         vector<int> result;
         result.reserve(numCourses);
 
-        bool found;
-        do {
-            found = false;
-            for (int n = 0; n < indegrees.size(); ++n) {
-                // look for a node that has no incoming edge
-                if (indegrees[n] == 0) {
-                    indegrees[n] = -1;  // mark visited
-                    found = true;
-                    result.emplace_back(n);
-                    for (int m : graph[n]) {
-                        --indegrees[m];
-                    }
+        int visited = 0;
+        while (!q.empty()) {
+            int n = q.front();
+            q.pop();
+            ++visited;
+            result.emplace_back(n);
+            for (int m : graph[n]) {
+                if (--indegrees[m] == 0) {
+                    q.push(m);
                 }
             }
-        } while (found);
-        for (int n : indegrees) {
-            if (n != -1) {
-                result.clear();
-                break;
-            }
         }
+
+        if (numCourses != visited) {
+            result.clear();
+        }
+
         return result;
     }
 };
