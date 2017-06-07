@@ -32,14 +32,34 @@ class Solution {
     vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
         vector<vector<int>> graph(numCourses);
         vector<int> indegrees(numCourses, 0);
+
         for (const auto& pair : prerequisites) {
-            graph[pair.second].emplace_back(pair.first);
+            graph[pair.second].emplace_back(pair.first);    // must take second before first
             ++indegrees[pair.first];
         }
-        vector<int> result;
-        for (int x : indegrees) {
-            if (x == 0) {
 
+        vector<int> result;
+        result.reserve(numCourses);
+
+        bool found;
+        do {
+            found = false;
+            for (int n = 0; n < indegrees.size(); ++n) {
+                // look for a node that has no incoming edge
+                if (indegrees[n] == 0) {
+                    indegrees[n] = -1;  // mark visited
+                    found = true;
+                    result.emplace_back(n);
+                    for (int m : graph[n]) {
+                        --indegrees[m];
+                    }
+                }
+            }
+        } while (found);
+        for (int n : indegrees) {
+            if (n != -1) {
+                result.clear();
+                break;
             }
         }
         return result;
