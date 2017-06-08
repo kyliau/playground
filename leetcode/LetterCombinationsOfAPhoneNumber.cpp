@@ -31,3 +31,43 @@ public:
         return v;
     }
 };
+
+class Solution {
+  public:
+    vector<string> letterCombinations(const string& digits) {
+        static const vector<string> digitMap = {
+            "",     // 0
+            "",     // 1
+            "abc",  // 2
+            "def",  // 3
+            "ghi",  // 4
+            "jkl",  // 5
+            "mno",  // 6
+            "pqrs", // 7
+            "tuv",  // 8
+            "wxyz", // 9
+        };
+        vector<string> results;
+        for (char d : digits) {
+            const string& word = digitMap[d - '0'];
+            if (results.empty()) {
+                for (char c : word) {
+                    results.emplace_back(1, c);
+                }
+            }
+            else if (!word.empty()) {
+                int count = results.size();
+                for (int i = 0; i < count; ++i) {
+                    results[i].push_back(word[0]);
+                }
+                for (int i = 1; i < word.size(); ++i) {
+                    for (int j = 0; j < count; ++j) {
+                        results.emplace_back(results[j]);
+                        results.back().back() = word[i];
+                    }
+                }
+            }            
+        }
+        return results;
+    }
+};
