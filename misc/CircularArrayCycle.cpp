@@ -2,7 +2,7 @@
 // single, complete cycle.
 
 bool hasSingleCompleteCycle(const vector<int>& v) {
-    int start    = 0;       // starting position
+    const int start = 0;       // starting position
     int position = start;
     for (int i = 0; i < v.size(); ++i) {
         position = (position + v[position]) % v.size();
@@ -13,5 +13,5 @@ bool hasSingleCompleteCycle(const vector<int>& v) {
             return false;
         }
     }
-    return start == position;
+    return position == start;
 }
