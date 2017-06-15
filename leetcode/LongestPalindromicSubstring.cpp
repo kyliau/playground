@@ -14,6 +14,7 @@
 #include <string>
 using namespace std;
 
+// Brute force
 class Solution {
   private:
     bool isPalindrome(const string& s, int start, int end) {
@@ -30,13 +31,42 @@ class Solution {
         int length = 0;
         for (int i = 0; i < s.length(); ++i) {
             for (int j = i; j < s.length(); ++j) {
-                if (isPalindrome(s, i, j) && j - i + 1 > length) {
+                if (j - i + 1 > length && isPalindrome(s, i, j)) {
                     length = j - i + 1;
                     start  = i;
                 }
             }
         }
         return s.substr(start, length);
+    }
+};
+
+// Find the 'center' of the palindrome and try to expand out
+class Solution {
+  private:
+    void extendPalindrome(const string& s, int j, int k, int& index, int& maxLength) {
+        while (j >= 0 && k < s.length() && s[j] == s[k]) {
+            --j;
+            ++k;
+        }
+        if (k - j - 1 > maxLength) {
+            maxLength = k - j - 1;
+            index = j + 1;
+        }
+    }
+  public:
+    string longestPalindrome(const string& s) {
+        int length = s.length();
+        if (length < 2) {
+            return s;
+        }
+        int index     = 0;
+        int maxLength = 0;
+        for (int i = 0; i < length - 1; ++i) {
+            extendPalindrome(s, i,     i, index, maxLength);
+            extendPalindrome(s, i, i + 1, index, maxLength);
+        }
+        return s.substr(index, maxLength);
     }
 };
 
