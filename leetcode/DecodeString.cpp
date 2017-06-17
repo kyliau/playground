@@ -1,44 +1,45 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
 class Solution {
   private:
-    string decode(const string& s, int left, int right) {
+    string decode(const string& s, int& index) {
         ostringstream stream;
-        int num      = 0;
-        int brackets = 0;
-        int begin    = -1;
-        int length   = 0;
-        for (int i = left; i < right; ++i) {
-            if (s[i] >= '0' || s[i] <= '9') {
-                num += num * 10 + s[i] - '0';
+        int num = 0;
+        while (index < s.size()) {
+            char c = s[index++];
+            if (c >= '0' && c <= '9') {
+                num = num * 10 + c - '0';
             }
-            else if (s[i] == '[') {
-                ++brackets;
-            }
-            else if (s[i] == ']') {
-                if (--brackets == 0) {
-                    string result = decode(s, begin, begin + length);
-                    for (int j = 0; j < num; ++j) {
-                        stream << result;
-                    }
-                    num = 0;
-                    begin = -1;
-                    length = 0;
+            else if (c == '[') {
+                string result = decode(s, index);
+                for (int i = 0; i < num; ++i) {
+                    stream << result;
                 }
+                num = 0;
+            }
+            else if (c == ']') {
+                return stream.str();
             }
             else {
-                if (begin == -1) {
-                    begin = i;
-                }
-                ++length;
+                stream << c;
             }
         }
-        stream << s.substr(begin, length);
         return stream.str();
     }
   public:
     string decodeString(const string& s) {
-        if (s.empty()) {
-            return s;
-        }
-        return decode(s, 0, s.length() - 1);
+        int index = 0;
+        return decode(s, index);
     }
 };
+
+int main() {
+    Solution s;
+    cout << s.decodeString("3[a]2[bc]") << endl;
+    cout << s.decodeString("3[a2[c]]") << endl;
+    cout << s.decodeString("2[abc]3[cd]ef") << endl;
+    cout << s.decodeString("3[a2[c]]bbb") << endl;
+}
