@@ -40,11 +40,25 @@ class Solution {
             }
             --p;
         }
-        
+
         return false;
     }
 public:
     bool canJump(vector<int>& nums) {
         return canJump(nums, 0);
+    }
+};
+
+class Solution {
+  public:
+    bool canJump(const vector<int>& nums) {
+        int reach = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (i > reach) {
+                return false;
+            }
+            reach = std::max(i + nums[i], reach);
+        }
+        return true;
     }
 };
