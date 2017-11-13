@@ -117,4 +117,5 @@
 - acquiesce
 - upbraid
 - vile
-
+- cadaver
+  * a dead human body (corpse_
