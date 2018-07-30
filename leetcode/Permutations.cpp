@@ -56,3 +56,29 @@ public:
         return result;
     }
 };
+
+class Solution2 {
+  private:
+    void generatePermutations(vector<int>& first, vector<int>& nums, int len, vector<vector<int>>& results) {
+      if (len == 0) {
+        results.push_back(first);
+      }
+      else {
+        for (int i = 0; i < len; ++i) {
+          first.push_back(nums[i]);
+          std::swap(nums[i], nums[len - 1]);
+          generatePermutations(first, nums, len - 1, results);
+          std::swap(nums[len - 1], nums[i]);
+          first.pop_back();
+        }
+      }
+    }
+  public:
+    vector<vector<int>> permute(vector<int>& nums) {
+      vector<vector<int>> results;
+      vector<int> first;
+      first.reserve(nums.size());
+      generatePermutations(first, nums, nums.size(), results);
+      return results;
+    }
+};
