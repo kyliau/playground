@@ -16,10 +16,10 @@ func isValidDateHelper(year, month, day int) bool {
 }
 
 func isValidDate(val [3]int) bool {
-	return isValidDateHelper(val[0], val[1], val[2]) ||
-		isValidDateHelper(val[0], val[2], val[1]) ||
-		isValidDateHelper(val[2], val[0], val[1]) ||
-		isValidDateHelper(val[2], val[1], val[0])
+	return isValidDateHelper(val[0], val[1], val[2]) || // YYYY-MM-DD
+		isValidDateHelper(val[0], val[2], val[1]) || // YYYY-DD-MM
+		isValidDateHelper(val[2], val[0], val[1]) || // MM-DD-YYYY
+		isValidDateHelper(val[2], val[1], val[0]) // DD-MM-YYYY
 }
 
 func main() {
